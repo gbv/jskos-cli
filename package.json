@@ -1,0 +1,45 @@
+{
+  "name": "jskos-cli",
+  "version": "0.1.0",
+  "description": "Command Line Applications to process JSKOS data format",
+  "homepage": "https://github.com/gbv/jskos-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gbv/jskos-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gbv/jskos-cli/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "echo testing with mocha not included yet",
+    "lint": "eslint ./**/*.js ./bin/*",
+    "fix": "eslint --fix ./**/*.js ./bin/*",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "bin/*": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "pre-commit": [
+    "test",
+    "lint-staged"
+  ],
+  "author": "Jakob Voß",
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "glob": "^7.1.2",
+    "lint-staged": "^7.3.0",
+    "mocha": "^5.2.0",
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "jskos-tools": "^0.1.15"
+  }
+}

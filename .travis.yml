@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+- node
+- 6
+deploy:
+  provider: npm
+  on:
+    tags: true
+    repo: gbv/jskos-cli
