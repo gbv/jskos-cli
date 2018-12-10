@@ -16,6 +16,7 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 - [Install](#install)
 - [Usage](#usage)
   - [jskos-validate](#jskos-validate)
+  - [jskos-convert](#jskos-convert)
 - [Build](#build)
 - [Test](#test)
 - [Maintainers](#maintainers)

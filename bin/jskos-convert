@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+const fs = require("fs")
+const program = require("commander")
+const convert = require("../src/jskos-convert.js")
+
+program
+  .version(require("../package.json").version)
+  .usage("[options] [concepts|mappings] [file...]")
+  .option("-f, --from <format>","input format (ndjson or csv)")
+  .option("-t, --to <format>","output format (ndjson or csv)")
+  .option("-l, --language <lang>", "include labels some language")
+
+program
+  .action( () => {
+    let env = program
+    args = env.args || []
+
+    let type = "concept"
+    let match = args.length && args[0].match(/^(concept|mapping)s?$/)
+    if (match) {
+      type = args.shift()
+    }
+
+    let file = args.length ? args.shift() : "-"
+    let ext = file.match(/\.(csv|ndjson)$/)
+
+    let from = env.from || ext ? ext[1] : "ndjson"
+    let to   = env.to || "ndjson"
+    let { language } = env
+
+    let input = file === "-" ? process.stdin : fs.createReadStream(file)
+    let output = process.stdout
+
+    convert({ from, to, type, language, input, output })
+  })
+
+program.parse(process.argv)

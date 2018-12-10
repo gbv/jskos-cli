@@ -1,6 +1,6 @@
 {
   "name": "jskos-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Command Line Applications to process JSKOS data format",
   "homepage": "https://github.com/gbv/jskos-cli",
   "repository": {
@@ -36,9 +36,13 @@
     "eslint": "^5.6.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
+    "ndjson": "^1.5.0",
     "pre-commit": "^1.2.2"
   },
   "dependencies": {
-    "jskos-tools": "^0.1.15"
+    "commander": "^2.19.0",
+    "csv": "^4.0.0",
+    "jskos-tools": "^0.1.15",
+    "ndjson": "^1.5.0"
   }
 }
