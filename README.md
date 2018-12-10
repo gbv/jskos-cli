@@ -1,4 +1,4 @@
-# JSKOS Command Line Interface *(jskos-cli)*
+# JSKOS Command Line Interface
 
 [![Build Status](https://travis-ci.com/gbv/jskos-cli.svg?branch=master)](https://travis-ci.com/gbv/jskos-cli)
 [![GitHub package version](https://img.shields.io/github/package-json/v/gbv/jskos-cli.svg?label=version)](https://github.com/gbv/jskos-cli)
@@ -15,6 +15,7 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 
 - [Install](#install)
 - [Usage](#usage)
+  - [jskos-validate](#jskos-validate)
 - [Build](#build)
 - [Test](#test)
 - [Maintainers](#maintainers)
@@ -28,6 +29,8 @@ npm i jskos-cli
 ```
 
 ## Usage
+
+### jskos-validate
 
 ...
 
@@ -52,9 +55,7 @@ npm test
 
 ## Contribute
 
-PRs accepted.
-
-If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details!
 
 ## License
 
