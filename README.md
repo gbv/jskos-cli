@@ -25,12 +25,16 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 ## Install
 
 ```bash
-npm i jskos-cli
+npm install jskos-cli
 ```
 
 ## Usage
 
 ### jskos-validate
+
+...
+
+### jskos-convert
 
 ...
 

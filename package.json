@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "echo testing with mocha not included yet",
+    "test": "mocha",
     "lint": "eslint ./**/*.js ./bin/*",
     "fix": "eslint --fix ./**/*.js ./bin/*",
     "lint-staged": "lint-staged"

@@ -35,7 +35,10 @@ args.forEach( (file, i) => {
   let objects = Array.isArray(data) ? data : [data]
   let ok = objects.every(obj => validate[type](obj))
 
-  console.log(`${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"}  ${i+1}  ${file}\x1b[0m`)
+  let msg = process.stdout.isTTY
+    ? `${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"} ${i+1} - ${file}\x1b[0m`
+    : `${ok ? "ok    " : "not ok"} ${i+1} - ${file}`
+  console.log(msg)
   if (fail < 99 && !ok) fail++
 })
 
