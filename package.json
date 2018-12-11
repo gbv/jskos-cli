@@ -42,7 +42,7 @@
   "dependencies": {
     "commander": "^2.19.0",
     "csv": "^4.0.0",
-    "jskos-tools": "^0.1.15",
+    "jskos-tools": "^0.1.17",
     "ndjson": "^1.5.0"
   }
 }

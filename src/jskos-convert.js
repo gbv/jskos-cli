@@ -3,7 +3,7 @@ const ndjson = require("ndjson")
 const csvSerializer = require("csv-stringify")
 const csvParser = require("csv-parse")
 
-const flattenMapping = require("./flatten-mapping.js")
+const { flattenMapping } = require("jskos-tools")
 const { Transform } = require("stream")
 
 function mappingsToRows(options = {}) {
@@ -46,6 +46,10 @@ function transformMappings(opts) {
     : [parser, serializer]
 
   return pipeline
+}
+
+function transformConcepts() {
+  return []
 }
 
 module.exports = opts => {
