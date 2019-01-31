@@ -1,45 +1,48 @@
 #!/usr/bin/env node
 
 const fs = require("fs")
+const program = require("commander")
 const { validate } = require("jskos-tools")
-const args = process.argv.slice(2)
 
-function usage(message) {
-  console.log("Usage: jskos-validate [item|concept|...] files...")
-  if (message) {
-    console.log("")
-    console.log(message)
-  }
-  process.exit(-1)
-}
+program
+  .version(require("../package.json").version)
+  .usage("[options] [type] files...")
+  .action( () => {
+    const env = program
+    args = (env.args || []).filter(a => typeof a === "string")
 
-if (!args.length) {
-  usage()
-}
+    if (!args.length) {
+      program.help()
+    }
 
-let type = "item"
+    // TODO: add option to list known types
+    let type = "item"
 
-if (args[0] in validate || args[0].replace(/s$/,"") in validate) {
-  type = args.shift().replace(/s$/,"")
-} else if (!fs.existsSync(args[0])) {
-  usage(`unknown object type: ${args[0]}`)
-}
+    if (args[0] in validate || args[0].replace(/s$/,"") in validate) {
+      type = args.shift().replace(/s$/,"")
+    } else if (!fs.existsSync(args[0])) {
+      usage(`unknown object type: ${args[0]}`)
+    }
 
-let fail = 0
+    let fail = 0
 
-args.forEach( (file, i) => {
-  let json = fs.readFileSync(file).toString()
-  let data = file.match(/\.ndjson$/)
-    ? json.split(/\n/).filter(Boolean).map(JSON.parse) 
-    : JSON.parse(json)
-  let objects = Array.isArray(data) ? data : [data]
-  let ok = objects.every(obj => validate[type](obj))
+    args.forEach( (file, i) => {
 
-  let msg = process.stdout.isTTY
-    ? `${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"} ${i+1} - ${file}\x1b[0m`
-    : `${ok ? "ok    " : "not ok"} ${i+1} - ${file}`
-  console.log(msg)
-  if (fail < 99 && !ok) fail++
-})
+      let json = fs.readFileSync(file).toString()
+      let data = file.match(/\.ndjson$/)
+        ? json.split(/\n/).filter(Boolean).map(JSON.parse) 
+        : JSON.parse(json)
+      let objects = Array.isArray(data) ? data : [data]
+      let ok = objects.every(obj => validate[type](obj))
 
-process.exit(fail)
+      let msg = process.stdout.isTTY
+        ? `${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"} ${i+1} - ${file}\x1b[0m`
+        : `${ok ? "ok    " : "not ok"} ${i+1} - ${file}`
+      console.log(msg)
+      if (fail < 99 && !ok) fail++
+    })
+
+    process.exit(fail)
+  })
+
+program.parse(process.argv)

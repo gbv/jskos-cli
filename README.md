@@ -26,18 +26,33 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 ## Install
 
 ```bash
-npm install jskos-cli
+npm install -g jskos-cli
 ```
 
 ## Usage
 
 ### jskos-validate
 
-...
+~~~
+Usage: jskos-validate [options] [type] files...
+
+Options:
+  -V, --version  output the version number
+  -h, --help     output usage information
+~~~
 
 ### jskos-convert
 
-...
+~~~
+Usage: jskos-convert [options] [concepts|mappings] [file...]
+
+Options:
+  -V, --version          output the version number
+  -f, --from <format>    input format (ndjson or csv)
+  -t, --to <format>      output format (ndjson or csv)
+  -l, --language <lang>  include labels (use '-' for any language)
+  -h, --help             output usage information
+~~~
 
 ## Build
 
@@ -64,4 +79,4 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details!
 
 ## License
 
-MIT © 2018 Verbundzentrale des GBV (VZG)
+MIT © 2018- Verbundzentrale des GBV (VZG)

@@ -3,6 +3,10 @@
   "version": "0.2.1",
   "description": "Command Line Applications to process JSKOS data format",
   "homepage": "https://github.com/gbv/jskos-cli",
+  "bin": {
+    "jskos-validate": "./bin/jskos-validate",
+    "jskos-convert": "./bin/jskos-convert"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/gbv/jskos-cli.git"
