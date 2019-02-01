@@ -3,9 +3,10 @@
 const fs = require("fs")
 const program = require("../lib/cli")
 const convert = require("../lib/jskos-convert")
+const { guessObjectType } = require("jskos-tools")
 
 program
-  .usage("[options] [concepts|mappings] [file...]")
+  .usage("[options] [type] [file...]")
   .option("-f, --from <format>","input format (ndjson or csv)")
   .option("-t, --to <format>","output format (ndjson or csv)")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
@@ -16,10 +17,11 @@ program
     const env = program
     args = env.args || []
 
-    let type = "concept"
-    let match = args.length && args[0].match(/^(concept|mapping)s?$/)
-    if (match) {
-      type = args.shift()
+    let type = (guessObjectType(args[0]) || "").toLowerCase().replace(/^concept(.+)/, "$1")
+    if (type) {
+      args.shift()
+    } else {
+      type = "concept"
     }
 
     let file = args.length ? args.shift() : "-"

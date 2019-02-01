@@ -2,10 +2,11 @@
 
 const fs = require("fs")
 const program = require("../lib/cli")
-const { validate } = require("jskos-tools")
+const { validate, guessObjectType } = require("jskos-tools")
 
 program
   .usage("[options] [type] files...")
+  .example("mappings mappings.ndjson")
   .action( () => {
     const env = program
     args = (env.args || []).filter(a => typeof a === "string")
@@ -14,18 +15,18 @@ program
       program.help()
     }
 
-    let type = "item"
-
-    if (args[0] in validate || args[0].replace(/s$/,"") in validate) {
+    let type = (guessObjectType(args[0]) || "").toLowerCase().replace(/^concept(.+)/, "$1")
+    if (type in validate) {
       type = args.shift().replace(/s$/,"")
     } else if (!fs.existsSync(args[0])) {
-      usage(`unknown object type: ${args[0]}`)
+      console.error(`unknown object type: ${args[0]}`)
+      process.exit(1)
+    } else {
+      type = "item"
     }
 
     let fail = 0
-
     args.forEach( (file, i) => {
-
       let json = fs.readFileSync(file).toString()
       let data = file.match(/\.ndjson$/)
         ? json.split(/\n/).filter(Boolean).map(JSON.parse) 

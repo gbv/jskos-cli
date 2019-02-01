@@ -38,20 +38,28 @@ Usage: jskos-validate [options] [type] files...
 
 Options:
   -V, --version  output the version number
+  --list-types   list JSKOS object types
   -h, --help     output usage information
+
+Examples:
+  $ jskos-validate mappings mappings.ndjson
 ~~~
 
 ### jskos-convert
 
 ~~~
-Usage: jskos-convert [options] [concepts|mappings] [file...]
+Usage: jskos-convert [options] [type] [file...]
 
 Options:
   -V, --version          output the version number
+  --list-types           list JSKOS object types
   -f, --from <format>    input format (ndjson or csv)
   -t, --to <format>      output format (ndjson or csv)
   -l, --language <lang>  include labels (use '-' for any language)
   -h, --help             output usage information
+
+Examples:
+  $ jskos-convert mappings -t csv mappings.ndjson
 ~~~
 
 ## Build
