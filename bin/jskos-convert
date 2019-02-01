@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 const fs = require("fs")
-const program = require("../src/cli")
-const convert = require("../src/jskos-convert")
+const program = require("../lib/cli")
+const convert = require("../lib/jskos-convert")
 
 program
   .usage("[options] [concepts|mappings] [file...]")
