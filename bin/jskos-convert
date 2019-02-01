@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 const fs = require("fs")
-const program = require("commander")
+const program = require("../src/cli")
 const convert = require("../src/jskos-convert")
 
 program
-  .version(require("../package.json").version)
   .usage("[options] [concepts|mappings] [file...]")
   .option("-f, --from <format>","input format (ndjson or csv)")
   .option("-t, --to <format>","output format (ndjson or csv)")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
+  .example("mappings -t csv mappings.ndjson")
 
 program
   .action( () => {

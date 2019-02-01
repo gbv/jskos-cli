@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
 const fs = require("fs")
-const program = require("commander")
+const program = require("../src/cli")
 const { validate } = require("jskos-tools")
 
 program
-  .version(require("../package.json").version)
   .usage("[options] [type] files...")
   .action( () => {
     const env = program
@@ -15,7 +14,6 @@ program
       program.help()
     }
 
-    // TODO: add option to list known types
     let type = "item"
 
     if (args[0] in validate || args[0].replace(/s$/,"") in validate) {

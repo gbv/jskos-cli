@@ -40,6 +40,7 @@ function transformMappings(opts) {
   if (from === "ndjson" && to === "csv") {
     converter = mappingsToRows({language})
   }
+  // TODO: csv to ndjson
 
   let pipeline = converter 
     ? [parser, converter, serializer]
