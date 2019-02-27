@@ -35,6 +35,12 @@ program
     const to = env.to || "ndjson"
     const { language } = env
     const output = process.stdout
+    
+    output.on("error", err => {
+      if (err.code == "EPIPE") {
+        process.exit(0)
+      }
+    })
 
     while (args.length > 0) {
       let file = args.shift()
