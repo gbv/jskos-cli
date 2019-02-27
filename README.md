@@ -48,7 +48,7 @@ Examples:
 ### jskos-convert
 
 ~~~
-Usage: jskos-convert [options] [type] [file...]
+Usage: jskos-convert [options] [type] file...
 
 Options:
   -V, --version          output the version number
@@ -60,6 +60,7 @@ Options:
 
 Examples:
   $ jskos-convert mappings -t csv mappings.ndjson
+  $ jskos-convert concepts http://example.org/jskos.ndjson
 ~~~
 
 ## Build

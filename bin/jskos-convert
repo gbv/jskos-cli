@@ -1,21 +1,29 @@
 #!/usr/bin/env node
 
 const fs = require("fs")
+const request = require("request")
 const program = require("../lib/cli")
 const convert = require("../lib/jskos-convert")
 const { guessObjectType } = require("jskos-tools")
 
 program
-  .usage("[options] [type] [file...]")
+  .usage("[options] [type] file...")
   .option("-f, --from <format>","input format (ndjson or csv)")
   .option("-t, --to <format>","output format (ndjson or csv)")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
   .example("mappings -t csv mappings.ndjson")
+  .example("concepts http://example.org/jskos.ndjson")
 
 program
   .action( () => {
     const env = program
-    args = env.args || []
+    const args = env.args || []
+
+    if (args.length > 1) {
+      args.pop()
+    } else {
+      program.help()
+    }
 
     let type = (guessObjectType(args[0]) || "").toLowerCase().replace(/^concept(.+)/, "$1")
     if (type) {
@@ -24,17 +32,30 @@ program
       type = "concept"
     }
 
-    let file = args.length ? args.shift() : "-"
-    let ext = file.match(/\.(csv|ndjson)$/)
+    const to = env.to || "ndjson"
+    const { language } = env
+    const output = process.stdout
 
-    let from = env.from || (ext ? ext[1] : "ndjson")
-    let to   = env.to || "ndjson"
-    let { language } = env
+    while (args.length > 0) {
+      let file = args.shift()
+      let input = process.stdin
+      let from = env.from
 
-    let input = file === "-" ? process.stdin : fs.createReadStream(file)
-    let output = process.stdout
+      if (file.match(/https?:\/\//)) {
+        //const proto = require(file.match(/^https/) ? 'https' : 'http')
+        input = request.get(file)
+      } else if (file !== "-") {
+        let ext = file.match(/\.(csv|ndjson)$/)
+        if (!from && ext) {
+          from = ext[1]
+        }
+        input = fs.createReadStream(file)
+      }
 
-    convert({ from, to, type, language, input, output })
+      from = from || "ndjson"
+      input.on("error", e => { console.error(`${file}: ${e.message}`) })
+      convert({ from, to, type, language, input, output })
+    }
   })
 
 program.parse(process.argv)
