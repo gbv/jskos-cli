@@ -8,6 +8,7 @@
     "jskos-convert": "./bin/jskos-convert"
   },
   "files": [ "bin/", "lib/" ],
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/gbv/jskos-cli.git"
