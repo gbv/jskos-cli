@@ -48,14 +48,14 @@ program
       let from = env.from
 
       if (file.match(/https?:\/\//)) {
-        //const proto = require(file.match(/^https/) ? 'https' : 'http')
         input = request.get(file)
       } else if (file !== "-") {
-        let ext = file.match(/\.(csv|ndjson)$/)
-        if (!from && ext) {
-          from = ext[1]
-        }
         input = fs.createReadStream(file)
+      }
+
+      let ext = file.match(/\.(csv|ndjson)$/)
+      if (!from && ext) {
+        from = ext[1]
       }
 
       from = from || "ndjson"
