@@ -7,7 +7,7 @@ const convert = require("../lib/jskos-convert")
 const { guessObjectType } = require("jskos-tools")
 
 program
-  .usage("[options] [type] file...")
+  .usage("[options] [type] [files...]")
   .option("-f, --from <format>","input format (ndjson or csv)")
   .option("-t, --to <format>","output format (ndjson or csv)")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
@@ -17,7 +17,7 @@ program
 program
   .action( () => {
     const env = program
-    const args = env.args || []
+    let args = env.args || []
 
     if (args.length > 1) {
       args.pop()
@@ -41,6 +41,10 @@ program
         process.exit(0)
       }
     })
+
+    if (!args.length) {
+      args = ["-"]
+    }
 
     while (args.length > 0) {
       let file = args.shift()

@@ -48,7 +48,7 @@ Examples:
 ### jskos-convert
 
 ~~~
-Usage: jskos-convert [options] [type] file...
+Usage: jskos-convert [options] [type] [files...]
 
 Options:
   -V, --version          output the version number
