@@ -10,6 +10,7 @@ program
   .usage("[options] [type] [files...]")
   .option("-f, --from <format>","input format (ndjson or csv)")
   .option("-t, --to <format>","output format (ndjson or csv)")
+  .option("-v, --validate","validate and omit invalid records")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
   .example("mappings -t csv mappings.ndjson")
   .example("concepts http://example.org/jskos.ndjson")
@@ -33,7 +34,7 @@ program
     }
 
     const to = env.to || "ndjson"
-    const { language } = env
+    const { language, validate } = env
     const output = process.stdout
     
     output.on("error", err => {
@@ -64,7 +65,7 @@ program
 
       from = from || "ndjson"
       input.on("error", e => { console.error(`${file}: ${e.message}`) })
-      convert({ from, to, type, language, input, output })
+      convert({ from, to, type, language, input, output, validate })
     }
   })
 
