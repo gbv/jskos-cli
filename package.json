@@ -7,7 +7,10 @@
     "jskos-validate": "./bin/jskos-validate",
     "jskos-convert": "./bin/jskos-convert"
   },
-  "files": [ "bin/", "lib/" ],
+  "files": [
+    "bin/",
+    "lib/"
+  ],
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -39,15 +42,16 @@
   ],
   "author": "Jakob Voß",
   "devDependencies": {
-    "eslint": "^5.12.1",
+    "eslint": "^5.16.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
     "pre-commit": "^1.2.2"
   },
   "dependencies": {
-    "commander": "^2.19.0",
+    "commander": "^2.20.0",
     "csv": "^4.0.0",
-    "jskos-tools": "^0.1.26",
+    "jskos-tools": "^0.1.31",
+    "jskos-validate": "^0.2.1",
     "ndjson": "^1.5.0",
     "request": "^2.88.0"
   }
