@@ -2,7 +2,8 @@
 
 const fs = require("fs")
 const program = require("../lib/cli")
-const { validate, guessObjectType } = require("jskos-tools")
+const { guessObjectType } = require("jskos-tools")
+const validate = require("jskos-validate")
 
 program
   .usage("[options] [type] files...")
@@ -15,7 +16,7 @@ program
       program.help()
     }
 
-    let type = (guessObjectType(args[0]) || "").toLowerCase().replace(/^concept(.+)/, "$1")
+    let type = guessObjectType(args[0], true) || ""
     if (type in validate) {
       type = args.shift().replace(/s$/,"")
     } else if (!fs.existsSync(args[0])) {

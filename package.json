@@ -50,7 +50,7 @@
   "dependencies": {
     "commander": "^2.20.0",
     "csv": "^4.0.0",
-    "jskos-tools": "^0.1.31",
+    "jskos-tools": "^0.2.2",
     "jskos-validate": "^0.2.1",
     "ndjson": "^1.5.0",
     "request": "^2.88.0"

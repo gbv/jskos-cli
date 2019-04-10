@@ -26,7 +26,7 @@ program
       program.help()
     }
 
-    let type = (guessObjectType(args[0]) || "").toLowerCase().replace(/^concept(.+)/, "$1")
+    let type = guessObjectType(args[0], true) || ""
     if (type) {
       args.shift()
     } else {
