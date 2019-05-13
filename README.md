@@ -37,20 +37,22 @@ npm install -g jskos-cli
 Usage: jskos-convert [options] [type] [files...]
 
 Options:
-  -V, --version          output the version number
-  --list-types           list JSKOS object types
-  -f, --from <format>    input format (ndjson or csv)
-  -t, --to <format>      output format (ndjson or csv)
-  -v, --validate         validate and omit invalid records
-  -l, --language <lang>  include labels (use '-' for any language)
-  -h, --help             output usage information
+  -V, --version                output the version number
+  --list-types                 list JSKOS object types
+  -f, --from <format>          input format (ndjson or csv)
+  -t, --to <format>            output format (ndjson or csv)
+  -v, --validate               validate and omit invalid records
+  -l, --language <lang>        include labels (use '-' for any language)
+  -r, --registry <file>        registry file with schemes, types... to look up
+  -s, --scheme <uri|notation>  which scheme to use when converting concepts
+  -h, --help                   output usage information
 
 Examples:
   $ jskos-convert mappings -t csv mappings.ndjson
-  $ jskos-convert concepts http://example.org/jskos.ndjson
+  $ jskos-convert concepts -r registry.json -s example http://example.org/jskos.csv
 ~~~
 
-CSV format is only supported for mappings by now.
+CSV format is only supported for mappings and as input for concepts.
 
 ### jskos-validate
 

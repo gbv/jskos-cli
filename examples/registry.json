@@ -1,0 +1,11 @@
+{
+  "schemes": [
+    {
+      "uri": "http://example.org/voc",
+      "notation": ["example"],
+      "notationPattern": "[A-Z][0-9]*",
+      "namespace": "http://example.org/voc/"
+    }
+  ],
+  "type": ["http://purl.org/cld/cdtype/CatalogueOrIndex"]
+}

@@ -1,0 +1,10 @@
+{"uri":"http://example.org/voc/G","notation":["G"],"prefLabel":{"en":"Good"},"topConceptOf":[{"uri":"http://example.org/voc"}]}
+{"uri":"http://example.org/voc/G1","notation":["G1"],"prefLabel":{"en":"slightly good"},"broader":[{"notation":["G"]}]}
+{"uri":"http://example.org/voc/G2","notation":["G2"],"prefLabel":{"en":"very good"},"broader":[{"notation":["G"]}]}
+{"uri":"http://example.org/voc/G21","notation":["G21"],"prefLabel":{"en":"too good to be true"},"broader":[{"notation":["G2"]}]}
+{"uri":"http://example.org/voc/B","notation":["B"],"prefLabel":{"en":"Bad"},"topConceptOf":[{"uri":"http://example.org/voc"}]}
+{"uri":"http://example.org/voc/B1","notation":["B1"],"prefLabel":{"en":"slightly bad"},"broader":[{"notation":["B"]}]}
+{"uri":"http://example.org/voc/B2","notation":["B2"],"prefLabel":{"en":"very bad"},"broader":[{"notation":["B"]}]}
+{"uri":"http://example.org/voc/U","notation":["U"],"prefLabel":{"en":"Ugly"},"topConceptOf":[{"uri":"http://example.org/voc"}]}
+{"uri":"http://example.org/voc/U1","notation":["U1"],"prefLabel":{"en":"slightly ugly"},"broader":[{"notation":["U"]}]}
+{"uri":"http://example.org/voc/U2","notation":["U2"],"prefLabel":{"en":"very ugly"},"broader":[{"notation":["U"]}]}

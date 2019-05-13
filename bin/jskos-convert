@@ -12,8 +12,10 @@ program
   .option("-t, --to <format>","output format (ndjson or csv)")
   .option("-v, --validate","validate and omit invalid records")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
+  .option("-r, --registry <file>", "registry file with schemes, types... to look up")
+  .option("-s, --scheme <uri|notation>", "which scheme to use when converting concepts")
   .example("mappings -t csv mappings.ndjson")
-  .example("concepts http://example.org/jskos.ndjson")
+  .example("concepts -r registry.json -s example http://example.org/jskos.csv")
 
 program
   .action( () => {
@@ -34,7 +36,12 @@ program
     }
 
     const to = env.to || "ndjson"
-    const { language, validate } = env
+    const { language, validate, scheme } = env
+    const registry = {}
+    if (env.registry) {
+      let json = fs.readFileSync(env.registry)
+      Object.assign(registry, JSON.parse(json))
+    }
     const output = process.stdout
     
     output.on("error", err => {
@@ -65,7 +72,11 @@ program
 
       from = from || "ndjson"
       input.on("error", e => { console.error(`${file}: ${e.message}`) })
-      convert({ from, to, type, language, input, output, validate })
+      try {
+        convert({ from, to, type, language, input, output, validate, registry, scheme })
+      } catch(e) {
+        console.error(e.message)
+      }
     }
   })
 
