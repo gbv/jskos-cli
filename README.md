@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/gbv/jskos-cli.svg?branch=master)](https://travis-ci.com/gbv/jskos-cli)
 [![GitHub package version](https://img.shields.io/github/package-json/v/gbv/jskos-cli.svg?label=version)](https://github.com/gbv/jskos-cli)
-[![NPM package name](https://img.shields.io/badge/npm-jskos--tools-blue.svg)](https://www.npmjs.com/package/jskos-cli)
+[![NPM package name](https://img.shields.io/badge/npm-jskos--cli-blue.svg)](https://www.npmjs.com/package/jskos-cli)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
 > Command Line Applications to process JSKOS data format.
