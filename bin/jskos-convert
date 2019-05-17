@@ -14,6 +14,7 @@ program
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
   .option("-r, --registry <file>", "registry file with schemes, types... to look up")
   .option("-s, --scheme <uri|notation>", "which scheme to use when converting concepts")
+  .option("-m, --marktop", "explicitly mark concepts without broader as top concepts")
   .example("mappings -t csv mappings.ndjson")
   .example("concepts -r registry.json -s example http://example.org/jskos.csv")
 
@@ -36,14 +37,14 @@ program
     }
 
     const to = env.to || "ndjson"
-    const { language, validate, scheme } = env
+    const { language, validate, scheme, marktop } = env
     const registry = {}
     if (env.registry) {
       let json = fs.readFileSync(env.registry)
       Object.assign(registry, JSON.parse(json))
     }
     const output = process.stdout
-    
+
     output.on("error", err => {
       if (err.code == "EPIPE") {
         process.exit(0)
@@ -73,7 +74,7 @@ program
       from = from || "ndjson"
       input.on("error", e => { console.error(`${file}: ${e.message}`) })
       try {
-        convert({ from, to, type, language, input, output, validate, registry, scheme })
+        convert({ from, to, type, language, input, output, validate, registry, scheme, marktop })
       } catch(e) {
         console.error(e.message)
       }
