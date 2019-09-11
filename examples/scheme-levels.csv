@@ -1,11 +1,11 @@
-level,notation,prefLabel
-0,G,Good
-1,G1,slightly good
-1,G2,very good
-2,G21,too good to be true
-0,B,Bad
-1,B1,slightly bad
-1,B2,very bad
-0,U,Ugly
-1,U1,slightly ugly
-1,U2,very ugly
+level,notation,prefLabel,scopeNote
+0,G,Good,:-)
+1,G1,slightly good,
+1,G2,very good,
+2,G21,too good to be true,
+0,B,Bad,
+1,B1,slightly bad,
+1,B2,very bad,
+0,U,Ugly,
+1,U1,slightly ugly,
+1,U2,very ugly,
