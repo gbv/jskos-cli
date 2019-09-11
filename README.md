@@ -52,7 +52,10 @@ Examples:
   $ jskos-convert concepts -r registry.json -s example http://example.org/jskos.csv
 ~~~
 
-CSV format is only supported for mappings and as input for concepts.
+CSV format is only supported:
+
+* for mappings (from and to CSV). 1-to-n mappings are not supported yet
+* for concepts (as input only. Supportted fields: `notation`, `prefLabel`, `scopeNote`, `level`, `broaderNotation`)
 
 ### jskos-validate
 
