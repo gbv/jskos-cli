@@ -7,7 +7,9 @@ const validate = require("jskos-validate")
 
 program
   .usage("[options] [type] files...")
+  .example("concepts concepts.ndjson")
   .example("mappings mappings.ndjson")
+  .example("--list-types")
   .action( () => {
     const env = program
     args = (env.args || []).filter(a => typeof a === "string")

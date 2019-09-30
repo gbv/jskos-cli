@@ -15,8 +15,8 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 
 - [Install](#install)
 - [Usage](#usage)
-  - [jskos-convert](#jskos-convert)
   - [jskos-validate](#jskos-validate)
+  - [jskos-convert](#jskos-convert)
 - [Build](#build)
 - [Test](#test)
 - [Maintainers](#maintainers)
@@ -31,7 +31,27 @@ npm install -g jskos-cli
 
 ## Usage
 
+### jskos-validate
+
+Validate a set of ndjson files in JSKOS format and emit result in [TAP format](https://testanything.org/).
+
+~~~
+Usage: jskos-validate [options] [type] files...
+
+Options:
+  -V, --version  output the version number
+  --list-types   list JSKOS object types
+  -h, --help     output usage information
+
+Examples:
+  $ jskos-validate concepts concepts.ndjson
+  $ jskos-validate mappings mappings.ndjson
+  $ jskos-validate --list-types
+~~~
+
 ### jskos-convert
+
+Convert to/from JSKOS format.
 
 ~~~
 Usage: jskos-convert [options] [type] [files...]
@@ -56,22 +76,6 @@ CSV format is only supported:
 
 * for mappings (from and to CSV). 1-to-n mappings are not supported yet
 * for concepts (as input only. Supportted fields: `notation`, `prefLabel`, `scopeNote`, `level`, `broaderNotation`)
-
-### jskos-validate
-
-Validate a set of ndjson files and emit result in [TAP format](https://testanything.org/).
-
-~~~
-Usage: jskos-validate [options] [type] files...
-
-Options:
-  -V, --version  output the version number
-  --list-types   list JSKOS object types
-  -h, --help     output usage information
-
-Examples:
-  $ jskos-validate mappings mappings.ndjson
-~~~
 
 ## Build
 
