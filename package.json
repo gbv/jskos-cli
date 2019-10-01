@@ -47,7 +47,7 @@
     "mocha": "^5.2.0",
     "pre-commit": "^1.2.2"
   },
-  "dependencies": {
+  "dependencies": {    
     "commander": "^2.20.0",
     "csv": "^5.0.0",
     "jskos-tools": "^1.0.1",
