@@ -36,7 +36,7 @@ npm install -g jskos-cli
 Validate a set of ndjson files in JSKOS format and emit result in [TAP format](https://testanything.org/).
 
 ~~~
-Usage: jskos-validate [options] [type] files...
+Usage: jskos-validate [options] [type] [files...]
 
 Options:
   -V, --version  output the version number
@@ -48,6 +48,8 @@ Examples:
   $ jskos-validate mappings mappings.ndjson
   $ jskos-validate --list-types
 ~~~
+
+If JSKOS is read from standard input, only invalid records are reported.
 
 ### jskos-convert
 

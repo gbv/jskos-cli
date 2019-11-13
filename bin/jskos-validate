@@ -4,6 +4,7 @@ const fs = require("fs")
 const program = require("../lib/cli")
 const { guessObjectType } = require("jskos-tools")
 const validate = require("jskos-validate")
+const readline = require("readline")
 
 program
   .usage("[options] [type] files...")
@@ -29,22 +30,40 @@ program
     }
 
     let fail = 0
-    args.forEach( (file, i) => {
-      let json = fs.readFileSync(file).toString()
-      let data = file.match(/\.ndjson$/)
-        ? json.split(/\n/).filter(Boolean).map(JSON.parse) 
-        : JSON.parse(json)
-      let objects = Array.isArray(data) ? data : [data]
-      let ok = objects.every(obj => validate[type](obj))
+    if (args.length && args[0] !== "-") { // validate files
+      args.forEach( (file, i) => {
+        let json = fs.readFileSync(file).toString()
+        let data = file.match(/\.ndjson$/)
+          ? json.split(/\n/).filter(Boolean).map(JSON.parse) 
+          : JSON.parse(json)
+        let objects = Array.isArray(data) ? data : [data]
+        let ok = objects.every(obj => validate[type](obj))
 
-      let msg = process.stdout.isTTY
-        ? `${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"} ${i+1} - ${file}\x1b[0m`
-        : `${ok ? "ok    " : "not ok"} ${i+1} - ${file}`
-      console.log(msg)
-      if (fail < 99 && !ok) fail++
-    })
-
-    process.exit(fail)
+        let msg = process.stdout.isTTY
+          ? `${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"} ${i+1} - ${file}\x1b[0m`
+          : `${ok ? "ok    " : "not ok"} ${i+1} - ${file}`
+        console.log(msg)
+        if (fail < 99 && !ok) fail++
+      })
+      process.exit(fail)
+    } else { // validate NDJSON from STDIN
+      let line = 1
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        terminal: false
+      })
+      rl.on("line", data => {
+        let obj = JSON.parse(data)
+        let ok = validate[type](obj)
+        if (!ok) {
+          if (fail < 99) fail++
+          console.error(`invalid record on line ${line}`)
+        }
+        line++
+      })
+      rl.on("close", () => process.exit(fail) )
+    }
   })
 
 program.parse(process.argv)
