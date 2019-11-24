@@ -29,7 +29,7 @@ program
       program.help()
     }
 
-    let type = guessObjectType(args[0], true) || ""
+    let type = (guessObjectType(args[0], true) || "").toLowerCase()
     if (type) {
       args.shift()
     } else {

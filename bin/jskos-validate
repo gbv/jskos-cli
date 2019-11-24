@@ -19,7 +19,7 @@ program
       program.help()
     }
 
-    let type = guessObjectType(args[0], true) || ""
+    let type = (guessObjectType(args[0], true) || "").toLowerCase()
     if (type in validate) {
       type = args.shift().replace(/s$/,"")
     } else if (!fs.existsSync(args[0])) {
