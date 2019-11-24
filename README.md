@@ -59,15 +59,15 @@ Convert to/from JSKOS format.
 Usage: jskos-convert [options] [type] [files...]
 
 Options:
-  -V, --version                output the version number
-  --list-types                 list JSKOS object types
-  -f, --from <format>          input format (ndjson or csv)
-  -t, --to <format>            output format (ndjson or csv)
-  -v, --validate               validate and omit invalid records
-  -l, --language <lang>        include labels (use '-' for any language)
-  -r, --registry <file>        registry file with schemes, types... to look up
-  -s, --scheme <uri|notation>  which scheme to use when converting concepts
-  -h, --help                   output usage information
+  -V, --version                     output the version number
+  --list-types                      list JSKOS object types
+  -f, --from <format>               input format (ndjson or csv)
+  -t, --to <format>                 output format (ndjson or csv)
+  -v, --validate                    validate and omit invalid records
+  -l, --language <lang>             include labels (use '-' for any language)
+  -r, --registry <file>             registry file with schemes, types... to look up
+  -s, --scheme <uri|notation|file>  which scheme to use when converting concepts
+  -h, --help                        output usage information
 
 Examples:
   $ jskos-convert mappings -t csv mappings.ndjson

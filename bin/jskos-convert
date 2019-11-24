@@ -4,7 +4,7 @@ const fs = require("fs")
 const request = require("request")
 const program = require("../lib/cli")
 const convert = require("../lib/jskos-convert")
-const { guessObjectType } = require("jskos-tools")
+const { guessObjectType, ConceptScheme } = require("jskos-tools")
 
 program
   .usage("[options] [type] [files...]")
@@ -13,7 +13,7 @@ program
   .option("-v, --validate","validate and omit invalid records")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
   .option("-r, --registry <file>", "registry file with schemes, types... to look up")
-  .option("-s, --scheme <uri|notation>", "which scheme to use when converting concepts")
+  .option("-s, --scheme <uri|notation|file>", "which scheme to use when converting concepts")
   .option("-m, --marktop", "explicitly mark concepts without broader as top concepts")
   .example("mappings -t csv mappings.ndjson")
   .example("concepts -r registry.json -s example http://example.org/jskos.csv")
@@ -37,7 +37,7 @@ program
     }
 
     const to = env.to || "ndjson"
-    const { language, validate, scheme, marktop } = env
+    var { language, validate, scheme, marktop } = env
     const registry = {}
     if (env.registry) {
       let json = fs.readFileSync(env.registry)
@@ -53,6 +53,10 @@ program
 
     if (!args.length) {
       args = ["-"]
+    }
+
+    if (scheme && fs.existsSync(scheme)) {
+      scheme = new ConceptScheme(JSON.parse(fs.readFileSync(scheme)))
     }
 
     while (args.length > 0) {
