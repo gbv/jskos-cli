@@ -47,13 +47,13 @@
     "mocha": "^5.2.0",
     "pre-commit": "^1.2.2"
   },
-  "dependencies": {    
-    "commander": "^2.20.0",
-    "csv": "^5.0.0",
-    "jskos-tools": "^1.0.1",
-    "jskos-validate": "^0.2.2",
+  "dependencies": {
+    "commander": "^2.20.3",
+    "csv": "^5.3.1",
+    "jskos-tools": "^1.0.2",
+    "jskos-validate": "^0.3.2",
     "ndjson": "^1.5.0",
     "request": "^2.88.0",
-    "yaml": "^1.7.0"
+    "yaml": "^1.7.2"
   }
 }
