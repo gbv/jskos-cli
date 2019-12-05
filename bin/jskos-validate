@@ -9,6 +9,7 @@ const readline = require("readline")
 program
   .usage("[options] [type] files...")
   .option("-v, --verbose", "show error messages")
+  .option("-u, --unknown", "allow unknown fields")
   .example("concepts concepts.ndjson")
   .example("mappings mappings.ndjson")
   .example("--list-types")
@@ -30,9 +31,10 @@ program
       type = "item"
     }
 
+    const unknownFields = !!env.unknown
     const validate = (type, data) => {
       const validator = jskosValidate[type]
-      const result = validator(data)
+      const result = validator(data, { unknownFields })
       if (!result && env.verbose) {
         validator.errorMessages.map(error => console.error(`${type} ${error}`))
       }
