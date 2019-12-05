@@ -18,8 +18,8 @@ program
   .usage("[options] [type] files...")
   .option("-v, --verbose", "show error messages")
   .option("-u, --unknown", "allow unknown fields")
-  .example("concepts concepts.ndjson")
-  .example("mappings mappings.ndjson")
+  .example("-u concepts concepts.ndjson")
+  .example("-v mappings mappings.ndjson")
   .example("--list-types")
   .action( () => {
     const env = program

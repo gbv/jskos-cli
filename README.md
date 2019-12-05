@@ -36,16 +36,20 @@ npm install -g jskos-cli
 Validate a set of ndjson files in JSKOS format and emit result in [TAP format](https://testanything.org/).
 
 ~~~
-Usage: jskos-validate [options] [type] [files...]
+
+Usage: jskos-validate [options] [type] files...
 
 Options:
   -V, --version  output the version number
+  -q, --quiet    suppress status messages
   --list-types   list JSKOS object types
+  -v, --verbose  show error messages
+  -u, --unknown  allow unknown fields
   -h, --help     output usage information
 
 Examples:
-  $ jskos-validate concepts concepts.ndjson
-  $ jskos-validate mappings mappings.ndjson
+  $ jskos-validate -v concepts concepts.ndjson
+  $ jskos-validate -u mappings mappings.ndjson
   $ jskos-validate --list-types
 ~~~
 
