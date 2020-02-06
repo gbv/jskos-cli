@@ -6,6 +6,14 @@ const { guessObjectType } = require("jskos-tools")
 const jskosValidate = require("jskos-validate")
 const readline = require("readline")
 
+function message(msg, color=0) {
+  console.log(process.stdout.isTTY && color ?`\x1b[${color}m${msg}\x1b[0m` : msg)
+}
+
+function error(msg) {
+  console.error(process.stderr.isTTY ? `\x1b[31m${msg}\x1b[0m` : msg)
+}
+
 program
   .usage("[options] [type] files...")
   .option("-v, --verbose", "show error messages")
@@ -25,18 +33,23 @@ program
     if (type in jskosValidate) {
       type = args.shift().replace(/s$/,"")
     } else if (!fs.existsSync(args[0])) {
-      console.error(`unknown object type: ${args[0]}`)
+      error(`unknown object type: ${args[0]}`)
       process.exit(1)
     } else {
       type = "item"
     }
 
     const unknownFields = !!env.unknown
-    const validate = (type, data) => {
+    const validate = (type, data, counter) => {
       const validator = jskosValidate[type]
       const result = validator(data, { unknownFields })
-      if (!result && env.verbose) {
-        validator.errorMessages.map(error => console.error(`${type} ${error}`))
+      if (!result) {
+        if (env.verbose) {
+          error(`# invalid ${type} ${counter}:`)
+          validator.errorMessages.map(msg => console.error(`# ${type} ${msg}`))
+        } else {
+          error(`# invalid ${type} ${counter}`)
+        }
       }
       return result
     }
@@ -49,30 +62,28 @@ program
           ? json.split(/\n/).filter(Boolean).map(JSON.parse) 
           : JSON.parse(json)
         let objects = Array.isArray(data) ? data : [data]
-        let ok = objects.every(obj => validate(type, obj))
+        let counter = 1
+        let ok = objects.every(obj => validate(type, obj, counter++))
 
-        let msg = process.stdout.isTTY
-          ? `${ok ? "\x1b[32mok    " : "\x1b[31mnot ok"} ${i+1} - ${file}\x1b[0m`
-          : `${ok ? "ok    " : "not ok"} ${i+1} - ${file}`
-        console.log(msg)
-        if (fail < 99 && !ok) fail++
+        if (ok) {
+          message(`ok     ${i+1} - ${file}`, 32)
+        } else {
+          message(`not ok ${i+1} - ${file}`, 31)
+          if (fail < 99) fail++
+        }
       })
       process.exit(fail)
     } else { // validate NDJSON from STDIN
-      let line = 1
+      let counter = 1
       const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
         terminal: false
       })
       rl.on("line", data => {
-        let obj = JSON.parse(data)
-        let ok = validate(type, obj)
-        if (!ok) {
+        if (!validate(type, JSON.parse(data), counter++)) {
           if (fail < 99) fail++
-          console.error(`invalid ${type} on line ${line}`)
         }
-        line++
       })
       rl.on("close", () => process.exit(fail) )
     }

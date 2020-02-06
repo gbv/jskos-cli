@@ -32,7 +32,7 @@ describe("jskos-validate", () => {
     validate([input], (error, stdout, stderr) => {
       assert.equal(error.code, 1)
       assert.equal(stdout, "not ok 1 - "+input+"\n")
-      assert.equal(stderr, "")
+      assert.equal(stderr, "# invalid item 1\n")
       done()
     })
   })
