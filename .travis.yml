@@ -7,7 +7,7 @@ deploy:
   on:
     tags: true
     branch: master
-    node: 6
+    node: 10
   provider: npm
   email: jakob.voss@gbv.de
   api_key:
