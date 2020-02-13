@@ -57,7 +57,7 @@ If JSKOS is read from standard input, only invalid records are reported.
 
 ### jskos-convert
 
-Convert to/from JSKOS format.
+Convert concepts and/or mappings between CSV and JSKOS format.
 
 ~~~
 Usage: jskos-convert [options] [type] [files...]
@@ -78,10 +78,23 @@ Examples:
   $ jskos-convert concepts -r registry.json -s example http://example.org/jskos.csv
 ~~~
 
-CSV format is only supported:
+Concepts in CSV format are specified with:
 
-* for mappings (from and to CSV). 1-to-n mappings are not supported yet
-* for concepts (as input only. Supportted fields: `notation`, `prefLabel`, `scopeNote`, `level`, `broaderNotation`)
+* `notation` to build URIs from
+* `prefLabel` and `scopeNote` (only if a language is specified)
+* `level` and/or `broaderNotation` for hierarchies. CSV output uses `broaderNotation`.
+
+Multi-hierarchies are not supported in CSV.
+
+Mappings in CSV are specified with:
+
+* `fromNotation`
+* `fromLabel` (if a language is specified)
+* `toNotation`
+* `toLabel` (if a language is specified)
+* `type`
+
+1-to-n mappings are not supported yet.
 
 ## Build
 
