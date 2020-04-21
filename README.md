@@ -29,6 +29,8 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 npm install -g jskos-cli
 ```
 
+Requires at least Node 10.
+
 ## Usage
 
 ### jskos-validate
@@ -81,18 +83,19 @@ Examples:
 Concepts in CSV format are specified with:
 
 * `notation` to build URIs from
-* `prefLabel` and `scopeNote` (only if a language is specified)
+* `prefLabel` and `scopeNote` (if a language is specified)
 * `level` and/or `broaderNotation` for hierarchies. CSV output uses `broaderNotation`.
 
-Multi-hierarchies are not supported in CSV.
+Multi-hierarchies are not supported when converting from and/or to CSV.
 
-Mappings in CSV are specified with:
+Mappings in CSV format are specified with:
 
 * `fromNotation`
 * `fromLabel` (if a language is specified)
 * `toNotation`
 * `toLabel` (if a language is specified)
 * `type`
+* `creator`
 
 1-to-n mappings are not supported yet.
 

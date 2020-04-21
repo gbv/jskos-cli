@@ -78,7 +78,14 @@ program
       from = from || "ndjson"
       input.on("error", e => { console.error(`${file}: ${e.message}`) })
       try {
-        convert({ from, to, type, language, input, output, validate, registry, scheme, marktop })
+        let steps = convert({ from, to, type, language, validate, registry, scheme, marktop })
+        //pipeline(input, steps[0], output, (err) => { if (err) console.error(err.message) })
+
+        let stream = input
+        for (let i=0; i<steps.length; i++) {
+          stream = stream.pipe(steps[i])
+        }
+        stream.pipe(output)
       } catch(e) {
         console.error(e.message)
       }
