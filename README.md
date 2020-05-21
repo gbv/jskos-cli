@@ -80,7 +80,7 @@ Examples:
   $ jskos-convert concepts -r registry.json -s example http://example.org/jskos.csv
 ~~~
 
-Concepts in CSV format are specified with:
+Concepts in CSV format can be specified with:
 
 * `notation` to build URIs from
 * `prefLabel` and `scopeNote` (if a language is specified)
@@ -88,7 +88,7 @@ Concepts in CSV format are specified with:
 
 Multi-hierarchies are not supported when converting from and/or to CSV.
 
-Mappings in CSV format are specified with:
+Mappings in CSV format can be specified with:
 
 * `fromNotation`
 * `fromLabel` (if a language is specified)
