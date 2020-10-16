@@ -21,11 +21,9 @@ program
 program
   .action( () => {
     const env = program
-    let args = env.args || []
+    let args = (env.rawArgs || []).slice(2)
 
-    if (args.length > 1) {
-      args.pop()
-    } else {
+    if (!args.length) {
       program.help()
     }
 
