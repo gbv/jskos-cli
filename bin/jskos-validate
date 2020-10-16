@@ -23,12 +23,12 @@ program
   .example("--list-types")
   .action( () => {
     const env = program
-    args = (env.args || []).filter(a => typeof a === "string")
+    let args = (env.rawArgs || []).slice(2).filter(a => typeof a === "string")
 
     if (!args.length) {
       program.help()
     }
-    
+
     let type = (guessObjectType(args[0], true) || "").toLowerCase()
     if (type in jskosValidate) {
       type = args.shift().replace(/s$/,"")
@@ -59,7 +59,7 @@ program
       args.forEach( (file, i) => {
         let json = fs.readFileSync(file).toString()
         let data = file.match(/\.ndjson$/)
-          ? json.split(/\n/).filter(Boolean).map(JSON.parse) 
+          ? json.split(/\n/).filter(Boolean).map(JSON.parse)
           : JSON.parse(json)
         let objects = Array.isArray(data) ? data : [data]
         let counter = 1
@@ -78,7 +78,7 @@ program
       const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
-        terminal: false
+        terminal: false,
       })
       rl.on("line", data => {
         if (!validate(type, JSON.parse(data), counter++)) {
