@@ -9,19 +9,19 @@
 
 This repository contains command client applications for working with the [JSKOS data format for knowledge organization systems](http://gbv.github.io/jskos/).
 
-By now the application is just a wrapper around [jskos-tools](https://www.npmjs.com/package/jskos-tools).
-
 ## Table of Contents
 
-- [Install](#install)
-- [Usage](#usage)
-  - [jskos-validate](#jskos-validate)
-  - [jskos-convert](#jskos-convert)
-- [Build](#build)
-- [Test](#test)
-- [Maintainers](#maintainers)
-- [Contribute](#contribute)
-- [License](#license)
+- [JSKOS Command Line Interface](#jskos-command-line-interface)
+  - [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [jskos-validate](#jskos-validate)
+    - [jskos-convert](#jskos-convert)
+  - [Build](#build)
+  - [Test](#test)
+  - [Maintainers](#maintainers)
+  - [Contribute](#contribute)
+  - [License](#license)
 
 ## Install
 
@@ -29,7 +29,9 @@ By now the application is just a wrapper around [jskos-tools](https://www.npmjs.
 npm install -g jskos-cli
 ```
 
-Requires at least Node 10.
+This provides two commands, `jskos-validate` and `jskos-convert` (see below).
+
+Requires at least Node.js 10.
 
 ## Usage
 
