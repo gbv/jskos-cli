@@ -1,0 +1,35 @@
+# This workflow will release a package at npmjs and at GitHub releases
+
+name: Release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+        registry-url: https://registry.npmjs.org/
+    - run: npm install
+    - run: npm publish --access=public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  github:
+    runs-on: ubuntu-latest
+    steps:
+    - id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: jskos-cli ${{ github.ref }}
+        body: TODO
+        draft: true
+        prerelease: false
