@@ -20,7 +20,7 @@ describe("jskos-validate", () => {
 
   it("should check valid item", (done) => {
     let input = file("test/valid-item.ndjson")
-    validate([input], (error, stdout, stderr) => {
+    validate(["-v", input], (error, stdout, stderr) => {
       assert.equal(stdout, "ok     1 - "+input+"\n")
       assert.equal(stderr, "")
       done()
