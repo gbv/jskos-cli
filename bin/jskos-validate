@@ -7,11 +7,11 @@ const jskosValidate = require("jskos-validate")
 const readline = require("readline")
 
 function message(msg, color=0) {
-  console.log(process.stdout.isTTY && color ?`\x1b[${color}m${msg}\x1b[0m` : msg)
+  program.log(process.stdout.isTTY && color ? `\x1b[${color}m${msg}\x1b[0m` : msg)
 }
 
 function error(msg) {
-  console.error(process.stderr.isTTY ? `\x1b[31m${msg}\x1b[0m` : msg)
+  program.error(process.stderr.isTTY ? `\x1b[31m${msg}\x1b[0m` : msg)
 }
 
 program
