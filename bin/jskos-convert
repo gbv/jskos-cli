@@ -21,7 +21,7 @@ program
 program
   .action( () => {
     const env = program
-    let args = (env.rawArgs || []).slice(2)
+    let args = env.args || []
 
     if (!args.length) {
       program.help()

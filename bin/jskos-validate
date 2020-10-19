@@ -23,7 +23,7 @@ program
   .example("--list-types")
   .action(async () => {
     const env = program
-    let args = (env.rawArgs || []).slice(2).filter(a => typeof a === "string")
+    let args = (env.args || []).filter(a => typeof a === "string")
 
     if (!args.length) {
       program.help()
