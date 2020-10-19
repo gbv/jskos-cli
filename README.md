@@ -126,4 +126,4 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details!
 
 ## License
 
-MIT © 2018- Verbundzentrale des GBV (VZG)
+MIT (c) 2020 Verbundzentrale des GBV (VZG)
