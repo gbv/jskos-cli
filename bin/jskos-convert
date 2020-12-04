@@ -9,7 +9,7 @@ const { guessObjectType, ConceptScheme } = require("jskos-tools")
 program
   .usage("[options] [type] [files...]")
   .option("-f, --from <format>","input format (ndjson or csv)")
-  .option("-t, --to <format>","output format (ndjson or csv)")
+  .option("-t, --to <format>","output format (ndjson, csv, nt)")
   .option("-v, --validate","validate and omit invalid records")
   .option("-l, --language <lang>", "include labels (use '-' for any language)")
   .option("-r, --registry <file>", "registry file with schemes, types... to look up")
