@@ -51,6 +51,7 @@
     "csv": "^5.3.2",
     "jskos-tools": "^1.0.14",
     "jskos-validate": "^0.3.2",
+    "jsonld": "^3.2.0",
     "json-anystream": "^1.0.1",
     "ndjson": "^2.0.0",
     "request": "^2.88.2",

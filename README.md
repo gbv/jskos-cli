@@ -70,7 +70,7 @@ Options:
   -V, --version                     output the version number
   --list-types                      list JSKOS object types
   -f, --from <format>               input format (ndjson or csv)
-  -t, --to <format>                 output format (ndjson or csv)
+  -t, --to <format>                 output format (ndjson, csv, nt)
   -v, --validate                    validate and omit invalid records
   -l, --language <lang>             include labels (use '-' for any language)
   -r, --registry <file>             registry file with schemes, types... to look up
