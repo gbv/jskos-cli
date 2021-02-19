@@ -1,6 +1,6 @@
 # JSKOS Command Line Interface
 
-[![Build Status](https://travis-ci.com/gbv/jskos-cli.svg?branch=master)](https://travis-ci.com/gbv/jskos-cli)
+[![Test](https://github.com/gbv/jskos-cli/actions/workflows/test.yml/badge.svg)](https://github.com/gbv/jskos-cli/actions/workflows/test.yml)
 [![GitHub package version](https://img.shields.io/github/package-json/v/gbv/jskos-cli.svg?label=version)](https://github.com/gbv/jskos-cli)
 [![NPM package name](https://img.shields.io/badge/npm-jskos--cli-blue.svg)](https://www.npmjs.com/package/jskos-cli)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
