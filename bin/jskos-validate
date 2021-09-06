@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const fs = require("fs")
 const anystream = require("json-anystream")
 const program = require("../lib/cli")
@@ -15,78 +16,73 @@ function error(msg) {
 }
 
 program
-  .usage("[options] [type] files...")
+  .usage("[options] [type] <files...>")
   .option("-v, --verbose", "show error messages")
   .option("-u, --unknown", "allow unknown fields")
   .example("-u concepts concepts.ndjson")
   .example("-v mappings mappings.ndjson")
   .example("--list-types")
-  .action(async () => {
-    const env = program
-    let args = (env.args || []).filter(a => typeof a === "string")
 
-    if (!args.length) {
-      program.help()
-    }
+const args = program.parseArgs(process.argv)
+const options = program.opts()
 
-    let type = (guessObjectType(args[0], true) || "").toLowerCase()
-    if (type in jskosValidate) {
-      type = args.shift().replace(/s$/,"")
-    } else if (!fs.existsSync(args[0])) {
-      error(`unknown object type: ${args[0]}`)
-      process.exit(1)
-    } else {
-      type = "item"
-    }
+;(async () => {
+  let type = (guessObjectType(args[0], true) || "").toLowerCase()
+  if (type in jskosValidate) {
+    type = args.shift().replace(/s$/,"")
+  } else if (!fs.existsSync(args[0])) {
+    error(`unknown object type: ${args[0]}`)
+    process.exit(1)
+  } else {
+    type = "item"
+  }
 
-    const unknownFields = !!env.unknown
-    const validate = (type, data, counter) => {
-      const validator = jskosValidate[type]
-      const result = validator(data, { unknownFields })
-      if (!result) {
-        if (env.verbose) {
-          error(`# invalid ${type} ${counter}:`)
-          validator.errorMessages.map(msg => console.error(`# ${type} ${msg}`))
-        } else {
-          error(`# invalid ${type} ${counter}`)
-        }
+  const unknownFields = !!options.unknown
+  const validate = (type, data, counter) => {
+    const validator = jskosValidate[type]
+    const result = validator(data, { unknownFields })
+    if (!result) {
+      if (options.verbose) {
+        error(`# invalid ${type} ${counter}:`)
+        validator.errorMessages.map(msg => console.error(`# ${type} ${msg}`))
+      } else {
+        error(`# invalid ${type} ${counter}`)
       }
-      return result
     }
+    return result
+  }
 
-    let fail = 0
-    if (args.length && args[0] !== "-") { // validate files
-      let i = 0
-      for (let file of args) {
-        const stream = await anystream.make(file)
-        let counter = 1
-        let ok = true
-        for await (let object of stream) {
-          ok = validate(type, object, counter++) && ok
-        }
-
-        if (ok) {
-          message(`ok     ${i+1} - ${file}`, 32)
-        } else {
-          message(`not ok ${i+1} - ${file}`, 31)
-          if (fail < 99) fail++
-        }
-      }
-      process.exit(fail)
-    } else { // validate NDJSON from STDIN
+  let fail = 0
+  if (args.length && args[0] !== "-") { // validate files
+    let i = 0
+    for (let file of args) {
+      const stream = await anystream.make(file)
       let counter = 1
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        terminal: false,
-      })
-      rl.on("line", data => {
-        if (!validate(type, JSON.parse(data), counter++)) {
-          if (fail < 99) fail++
-        }
-      })
-      rl.on("close", () => process.exit(fail) )
-    }
-  })
+      let ok = true
+      for await (let object of stream) {
+        ok = validate(type, object, counter++) && ok
+      }
 
-program.parse(process.argv)
+      if (ok) {
+        message(`ok     ${i+1} - ${file}`, 32)
+      } else {
+        message(`not ok ${i+1} - ${file}`, 31)
+        if (fail < 99) fail++
+      }
+    }
+    process.exit(fail)
+  } else { // validate NDJSON from STDIN
+    let counter = 1
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      terminal: false,
+    })
+    rl.on("line", data => {
+      if (!validate(type, JSON.parse(data), counter++)) {
+        if (fail < 99) fail++
+      }
+    })
+    rl.on("close", () => process.exit(fail) )
+  }
+})()

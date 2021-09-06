@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const request = require("request")
 const program = require("../lib/cli")
-const convert = require("../lib/jskos-convert")
-const { guessObjectType, ConceptScheme } = require("jskos-tools")
+const convert = require("../lib/convert-action")
+const { guessObjectType } = require("jskos-tools")
 
 program
   .usage("[options] [type] [files...]")
@@ -19,77 +17,16 @@ program
   .example("mappings -t csv mappings.ndjson")
   .example("concepts -r registry.json -s example http://example.org/jskos.csv")
 
-program
-  .action( () => {
-    const env = program
-    let args = env.args || []
+const args = program.parseArgs(process.argv)
 
-    if (!args.length) {
-      program.help()
-    }
+let type = (guessObjectType(args[0], true) || "").toLowerCase()
+if (type) {
+  args.shift()
+} else {
+  type = "concept"
+}
 
-    let type = (guessObjectType(args[0], true) || "").toLowerCase()
-    if (type) {
-      args.shift()
-    } else {
-      type = "concept"
-    }
+const files = args.length ? args : ["-"]
+const options = program.opts()
 
-    const to = env.to || "ndjson"
-    var { language, validate, scheme, marktop } = env
-    const registry = {}
-    if (env.registry) {
-      let json = fs.readFileSync(env.registry)
-      Object.assign(registry, JSON.parse(json))
-    }
-    const output = process.stdout
-
-    output.on("error", err => {
-      if (err.code == "EPIPE") {
-        process.exit(0)
-      }
-    })
-
-    if (!args.length) {
-      args = ["-"]
-    }
-
-    if (scheme && fs.existsSync(scheme)) {
-      scheme = new ConceptScheme(JSON.parse(fs.readFileSync(scheme).toString()))
-    }
-
-    while (args.length > 0) {
-      let file = args.shift()
-      let input = process.stdin
-      let from = env.from
-      let clean = env.clean
-
-      if (file.match(/https?:\/\//)) {
-        input = request.get(file)
-      } else if (file !== "-") {
-        input = fs.createReadStream(file)
-      }
-
-      let ext = file.match(/\.(csv|ndjson)$/)
-      if (!from && ext) {
-        from = ext[1]
-      }
-
-      from = from || "ndjson"
-      input.on("error", e => { console.error(`${file}: ${e.message}`) })
-      try {
-        let steps = convert({ from, to, type, language, validate, registry, scheme, marktop, clean })
-        //pipeline(input, steps[0], output, (err) => { if (err) console.error(err.message) })
-
-        let stream = input
-        for (let i=0; i<steps.length; i++) {
-          stream = stream.pipe(steps[i])
-        }
-        stream.pipe(output)
-      } catch(e) {
-        console.error(e.message)
-      }
-    }
-  })
-
-program.parse(process.argv)
+convert(options, type, files)
