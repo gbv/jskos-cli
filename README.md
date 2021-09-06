@@ -11,33 +11,27 @@ This repository contains command client applications for working with the [JSKOS
 
 ## Table of Contents
 
-- [JSKOS Command Line Interface](#jskos-command-line-interface)
-  - [Table of Contents](#table-of-contents)
-  - [Install](#install)
-  - [Usage](#usage)
-    - [jskos-validate](#jskos-validate)
-    - [jskos-convert](#jskos-convert)
-  - [Build](#build)
-  - [Test](#test)
-  - [Maintainers](#maintainers)
-  - [Contribute](#contribute)
-  - [License](#license)
+- [Install](#install)
+- [Usage](#usage)
+  - [jskos-validate](#jskos-validate)
+  - [jskos-convert](#jskos-convert)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Install
+
+Install globally to provide commands `jskos-validate` and `jskos-convert`:
 
 ```bash
 npm install -g jskos-cli
 ```
 
-This provides two commands, `jskos-validate` and `jskos-convert` (see below).
-
-Requires at least Node.js 10.
-
 ## Usage
 
 ### jskos-validate
 
-Validate a set of ndjson files in JSKOS format and emit result in [TAP format](https://testanything.org/).
+Validate a set of ndjson files in JSKOS format.
 
 ~~~
 
@@ -57,11 +51,11 @@ Examples:
   $ jskos-validate --list-types
 ~~~
 
-If JSKOS is read from standard input, only invalid records are reported.
+Validation result is emitted in [TAP format](https://testanything.org/). Errors are reported as diagnostic lines with record number. If JSKOS is read from standard input, only invalid records are reported. Exit code is the number of errors (up to 100).
 
 ### jskos-convert
 
-Convert concepts and/or mappings between CSV and JSKOS format.
+Convert between JSKOS and other formats (by now only CSV and RDF/N-Triples).
 
 ~~~
 Usage: jskos-convert [options] [type] [files...]
@@ -74,7 +68,7 @@ Options:
   -v, --validate                    validate and omit invalid records
   -l, --language <lang>             include labels (use '-' for any language)
   -r, --registry <file>             registry file with schemes, types... to look up
-  -s, --scheme <uri|notation|file>  which scheme to use when converting concepts
+  -s, --scheme <uri|notation|file>  concept scheme to use when converting concepts
   -h, --help                        output usage information
 
 Examples:
@@ -101,26 +95,12 @@ Mappings in CSV format can be specified with:
 
 1-to-n mappings are not supported yet.
 
-## Build
-
-```bash
-git clone --recursive https://github.com/gbv/jskos-cli.git
-cd jskos-cli
-npm install
-```
-
-## Test
-
-```bash
-npm test
-```
-
 ## Maintainers
 
 - [@nichtich](https://github.com/nichtich)
 - [@stefandesu](https://github.com/stefandesu)
 
-## Contribute
+## Contributing
 
 Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details!
 
