@@ -7,7 +7,7 @@
 
 > Command Line Applications to process JSKOS data format.
 
-This repository contains command client applications for working with the [JSKOS data format for knowledge organization systems](http://gbv.github.io/jskos/).
+This repository contains command client applications for working with the [JSKOS data format for knowledge organization systems](http://gbv.github.io/jskos/). The applications are basically wrappers around [jskos-validate](https://www.npmjs.com/package/jskos-validate) and [jskos-tools](https://www.npmjs.com/package/jskos-tools).
 
 ## Table of Contents
 
