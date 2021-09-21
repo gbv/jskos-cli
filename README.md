@@ -61,15 +61,20 @@ Convert between JSKOS and other formats (by now only CSV and RDF/N-Triples).
 Usage: jskos-convert [options] [type] [files...]
 
 Options:
-  -V, --version                     output the version number
-  --list-types                      list JSKOS object types
-  -f, --from <format>               input format (ndjson or csv)
-  -t, --to <format>                 output format (ndjson, csv, nt)
-  -v, --validate                    validate and omit invalid records
-  -l, --language <lang>             include labels (use '-' for any language)
-  -r, --registry <file>             registry file with schemes, types... to look up
-  -s, --scheme <uri|notation|file>  concept scheme to use when converting concepts
-  -h, --help                        output usage information
+  -V, --version                          output the version number
+  -q, --quiet                            suppress status messages
+  --list-types                           list JSKOS object types
+  -f, --from <format>                    input format (ndjson or csv)
+  -t, --to <format>                      output format (ndjson, csv, nt)
+  -c, --clean                            cleanup input data
+  -v, --validate                         validate and omit invalid records
+  -l, --language <lang>                  include labels (use '-' for any language)
+  -r, --registry <file>                  registry file with schemes, types... to look up
+  -s, --scheme <uri|notation|file>       concept scheme to convert concepts or mappings
+  -d, --destination <uri|notation|file>  target scheme to convert mappings
+  -p, --partof <uri>                     concordance URI
+  -m, --marktop                          explicitly mark concepts without broader as top concepts
+  -h, --help                             display help for command
 
 Examples:
   $ jskos-convert mappings -t csv mappings.ndjson
