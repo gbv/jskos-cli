@@ -93,11 +93,11 @@ Multi-hierarchies are not supported when converting from and/or to CSV.
 Mappings in CSV format can be specified with:
 
 * `fromNotation`
-* `fromLabel` (if a language is specified)
+* `fromLabel` (if a language is specified, ignored when converting from CSV)
 * `toNotation`
-* `toLabel` (if a language is specified)
+* `toLabel` (if a language is specified, ignored when converting from CSV)
 * `type`
-* `creator`
+* `creator` (ignored when converting from CSV)
 
 1-to-n mappings are not supported yet.
 
