@@ -1,3 +1,11 @@
+## 0.5.4
+
+* jskos-validate: Make type argument optional
+
+## 0.5.3
+
+* jskos-validate: Fix validation of URLs with Umlauts and fragment identifier
+
 ## 0.5.2
 
 * jskos-validate: Fix validation of URLs with Umlauts and fragment identifier

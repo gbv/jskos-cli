@@ -20,7 +20,7 @@ describe("jskos-validate", () => {
 
   it("should check valid item", (done) => {
     let input = file("test/valid-item.ndjson")
-    validate(["-v", input], (error, stdout, stderr) => {
+    validate(["-v", "item", input], (error, stdout, stderr) => {
       assert.equal(stdout, "ok     1 - "+input+"\n")
       assert.equal(stderr, "")
       done()
@@ -29,7 +29,7 @@ describe("jskos-validate", () => {
 
   it("should detect invalid item", (done) => {
     let input = file("test/invalid-item.ndjson")
-    validate([input], (error, stdout, stderr) => {
+    validate(["item", input], (error, stdout, stderr) => {
       assert.equal(error.code, 1)
       assert.equal(stdout, "not ok 1 - "+input+"\n")
       assert.equal(stderr, "# invalid item 1\n")
