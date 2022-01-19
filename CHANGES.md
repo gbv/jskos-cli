@@ -1,3 +1,7 @@
+## 0.5.2
+
+* jskos-validate: Fix validation of URLs with Umlauts and fragment identifier
+
 ## 0.4.2
 
 * jskos-convert: support converting concepts to CSV
