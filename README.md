@@ -48,7 +48,7 @@ Options:
 Examples:
   $ jskos-validate -v concepts concepts.ndjson
   $ jskos-validate -u mappings mappings.ndjson
-  $ jskos-validate --list-types
+  $ jskos-validate schemes.ndjson concepts.ndjson
 ~~~
 
 Validation result is emitted in [TAP format](https://testanything.org/). Errors are reported as diagnostic lines with record number. If JSKOS is read from standard input, only invalid records are reported. Exit code is the number of errors (up to 100).

@@ -21,7 +21,7 @@ program
   .option("-u, --unknown", "allow unknown fields")
   .example("-u concepts concepts.ndjson")
   .example("-v mappings mappings.ndjson")
-  .example("--list-types")
+  .example("schemes.ndjson concepts.ndjson")
 
 const args = program.parseArgs(process.argv)
 const options = program.opts()
@@ -35,10 +35,11 @@ const options = program.opts()
     process.exit(1)
   }
 
+  const rememberSchemes = type ? [] : null
   const unknownFields = !!options.unknown
   const validate = (type, data, counter) => {
     const validator = type ? jskosValidate[type] : jskosValidate
-    const result = validator(data, { unknownFields })
+    const result = validator(data, { unknownFields, rememberSchemes })
     if (!result) {
       if (options.verbose) {
         error(`# invalid ${type} ${counter}:`)

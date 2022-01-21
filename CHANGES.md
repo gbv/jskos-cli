@@ -1,3 +1,7 @@
+## 0.5.5
+
+* jskos-validate: remember schemes if not type specified
+
 ## 0.5.4
 
 * jskos-validate: Make type argument optional
