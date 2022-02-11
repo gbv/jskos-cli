@@ -1,3 +1,7 @@
+## 0.5.6
+
+* jskos-convert: allow schemes to be passed as array
+
 ## 0.5.5
 
 * jskos-validate: remember schemes if not type specified
