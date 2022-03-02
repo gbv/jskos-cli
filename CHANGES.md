@@ -1,3 +1,7 @@
+## 0.5.7
+
+* jskos-convert: fix scopeNote and altLabel from csv
+
 ## 0.5.6
 
 * jskos-convert: allow schemes to be passed as array
