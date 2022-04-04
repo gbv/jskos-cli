@@ -1,3 +1,7 @@
+## 0.5.8
+
+* jskos-convert: fix scopeNote and altLabel from csv (again)
+
 ## 0.5.7
 
 * jskos-convert: fix scopeNote and altLabel from csv
