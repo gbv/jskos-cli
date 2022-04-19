@@ -53,8 +53,8 @@
   "dependencies": {
     "commander": "^8.1.0",
     "csv": "^5.0.0",
-    "jskos-tools": "^1.0.17",
-    "jskos-validate": "^0.5.1",
+    "jskos-tools": "^1.0.26",
+    "jskos-validate": "^0.5.3",
     "json-anystream": "^1.1.0",
     "jsonld": "^5.2.0",
     "ndjson": "^2.0.0",

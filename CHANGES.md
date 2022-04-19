@@ -1,3 +1,7 @@
+## 0.5.9
+
+* Update dependencies (especially jskos-tools and jskos-validate)
+
 ## 0.5.8
 
 * jskos-convert: fix scopeNote and altLabel from csv (again)
