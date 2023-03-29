@@ -56,4 +56,17 @@ describe("jskos-convert", () => {
     })
   })
 
+  // TODO: Maybe move to "convert-concepts.js" test file after it is fixed. Maybe deal with test files differently as well.
+  it("should convert concepts from csv to ndjson", (done) => {
+    const input = file("test/test-concepts.csv")
+    const scheme = file("test/test-scheme.json")
+    convert(["concepts", "-s", scheme, "-t", "ndjson", "-m", input], (error, stdout, stderr) => {
+      const expected = fs.readFileSync(input.replace(".csv", ".ndjson")).toString().trim()
+      const output = (""+stdout).trim()
+      assert.strictEqual(expected, output)
+      assert.equal(stderr, "")
+      done()
+    })
+  })
+
 })
