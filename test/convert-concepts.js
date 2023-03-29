@@ -5,11 +5,13 @@ const jsonFile = name => JSON.parse(fs.readFileSync(exampleFile(name)))
 const convert = require("../lib/jskos-convert")
 const { pipeline } = require("stream")
 
+// TODO: This test does not work. In fact, it completely blocks the test and aborts it. See https://github.com/gbv/jskos-cli/issues/32.
+
 describe("convert-concepts", () => {
 
   it("converts concepts with level", (done) => {
     const input = fs.createReadStream(exampleFile("scheme-levels.csv"))
-    
+
     const registry = jsonFile("registry.json")
     const scheme = "example"
 
