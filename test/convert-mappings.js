@@ -25,29 +25,37 @@ describe("convert-mappings", () => {
     ]
     const output = [
       {
-        from: { memberSet: [{
-          inScheme: [ { uri: "http://example.org/voc" } ],
-          notation: [ "A1" ],
-          uri: "http://example.org/voc/A1",
-        }] },
-        to: { memberSet: [{
-          inScheme: [ { uri: "http://example.com/voc" } ],
-          notation: [ "x" ],
-          uri: "http://example.com/voc/x",
-        }] },
+        from: {
+          memberSet: [{
+            notation: ["A1"],
+            uri: "http://example.org/voc/A1",
+          }],
+        },
+        fromScheme: { uri: "http://example.org/voc" },
+        to: {
+          memberSet: [{
+            notation: ["x"],
+            uri: "http://example.com/voc/x",
+          }],
+        },
+        toScheme: { uri: "http://example.com/voc" },
         type: [ "http://www.w3.org/2004/02/skos/core#mappingRelation" ],
       },
       {
-        from: { memberSet: [{
-          inScheme: [ { uri: "http://example.org/voc" } ],
-          notation: [ "X2" ],
-          uri: "http://example.org/voc/X2",
-        }] },
-        to: { memberSet: [{
-          inScheme: [ { uri: "http://example.com/voc" } ],
-          notation: [ "y" ],
-          uri: "http://example.com/voc/y",
-        }] },
+        from: {
+          memberSet: [{
+            notation: ["X2"],
+            uri: "http://example.org/voc/X2",
+          }],
+        },
+        fromScheme: { uri: "http://example.org/voc" },
+        to: {
+          memberSet: [{
+            notation: ["y"],
+            uri: "http://example.com/voc/y",
+          }],
+        },
+        toScheme: { uri: "http://example.com/voc" },
         type: [ "http://www.w3.org/2004/02/skos/core#exactMatch" ],
       },
     ]
