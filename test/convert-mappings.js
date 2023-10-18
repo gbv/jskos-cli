@@ -51,6 +51,16 @@ describe("convert-mappings", () => {
         type: [ "http://www.w3.org/2004/02/skos/core#exactMatch" ],
       },
     ]
+    // Test creator (use first input)
+    // Creator 1: only URI
+    input.push({ ...input[0], creator: "https://example.com" })
+    output.push({ ...output[0], creator: [{ uri: "https://example.com" }] })
+    // Creator 2: only name
+    input.push({ ...input[0], creator: "Test" })
+    output.push({ ...output[0], creator: [{ prefLabel: { en: "Test" } }] })
+    // Creator 3: name and URI
+    input.push({ ...input[0], creator: "https://example.com Test" })
+    output.push({ ...output[0], creator: [{ uri: "https://example.com", prefLabel: { en: "Test" } }] })
     var result
     transform.push = x => { result = x }
     input.forEach((row, index) => { 

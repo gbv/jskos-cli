@@ -16,6 +16,7 @@ program
   .option("-d, --destination <uri|notation|file>", "target scheme to convert mappings")
   .option("-p, --partof <uri>", "concordance URI")
   .option("-m, --marktop", "explicitly mark concepts without broader as top concepts")
+  .option("--creator <uri and/or name>", "add creator to mappings")
   .example("mappings -t csv mappings.ndjson")
   .example("concepts -r registry.json -s example http://example.org/jskos.csv")
 
