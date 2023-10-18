@@ -74,6 +74,7 @@ Options:
   -d, --destination <uri|notation|file>  target scheme to convert mappings
   -p, --partof <uri>                     concordance URI
   -m, --marktop                          explicitly mark concepts without broader as top concepts
+  --creator <uri and/or name>            add creator to mappings
   -h, --help                             display help for command
 
 Examples:
@@ -97,7 +98,7 @@ Mappings in CSV format can be specified with:
 * `toNotation`
 * `toLabel` (if a language is specified, ignored when converting from CSV)
 * `type`
-* `creator` (ignored when converting from CSV)
+* `creator` (URI and/or name, separated by a space, in that order; e.g: "https://github.com/stefandesu Stefan Peters")
 
 1-to-n mappings are not supported yet.
 
