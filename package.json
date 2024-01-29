@@ -1,6 +1,6 @@
 {
   "name": "jskos-cli",
-  "version": "0.5.11",
+  "version": "0.6.0",
   "description": "Command Line Applications to process JSKOS data format",
   "homepage": "https://github.com/gbv/jskos-cli",
   "bin": {
