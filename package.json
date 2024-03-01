@@ -44,22 +44,22 @@
   ],
   "author": "Jakob Voß",
   "devDependencies": {
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-gbv": "^1.1.0",
-    "lint-staged": "^15.2.0",
-    "mocha": "^10.2.0",
+    "lint-staged": "^15.2.2",
+    "mocha": "^10.3.0",
     "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "commander": "^11.1.0",
-    "csv": "^6.3.6",
-    "jskos-tools": "^1.0.34",
-    "jskos-validate": "^0.5.9",
+    "csv": "^6.3.8",
+    "jskos-tools": "^1.0.35",
+    "jskos-validate": "^0.6.0",
     "json-anystream": "^1.1.1",
     "jsonld": "^8.3.2",
     "ndjson": "^2.0.0",
     "needle": "^3.3.1",
-    "yaml": "^2.3.4"
+    "yaml": "^2.4.0"
   },
   "engines": {
     "node": ">=18.12.0"
