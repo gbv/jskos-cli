@@ -66,7 +66,9 @@ const options = program.opts()
         message(`ok     ${i+1} - ${file}`, 32)
       } else {
         message(`not ok ${i+1} - ${file}`, 31)
-        if (fail < 99) fail++
+        if (fail < 99) {
+          fail++
+        }
       }
     }
     process.exit(fail)
@@ -79,7 +81,9 @@ const options = program.opts()
     })
     rl.on("line", data => {
       if (!validate(type, JSON.parse(data), counter++)) {
-        if (fail < 99) fail++
+        if (fail < 99) {
+          fail++
+        }
       }
     })
     rl.on("close", () => process.exit(fail) )

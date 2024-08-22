@@ -70,7 +70,9 @@ describe("convert-mappings", () => {
     input.push({ ...input[0], creator: "https://example.com Test" })
     output.push({ ...output[0], creator: [{ uri: "https://example.com", prefLabel: { en: "Test" } }] })
     var result
-    transform.push = x => { result = x }
+    transform.push = x => {
+      result = x 
+    }
     input.forEach((row, index) => { 
       transform._transform(row, undefined, () => {
         assert.deepEqual(result, output[index])
