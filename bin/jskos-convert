@@ -1,4 +1,4 @@
-#!/usr/bin/env node --no-deprecation
+#!/usr/bin/env -S node --no-deprecation
 
 import program from "../lib/cli.js"
 import convert from "../lib/convert-action.js"
