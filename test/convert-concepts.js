@@ -1,27 +1,46 @@
 /* eslint-disable no-unreachable */
-const fs = require("fs")
-const { resolve } = require("path")
-const exampleFile = name => resolve(__dirname, "../examples/", name)
-const jsonFile = name => JSON.parse(fs.readFileSync(exampleFile(name)))
-const convert = require("../lib/jskos-convert")
-const { pipeline } = require("stream")
+import fs from "fs"
+import { resolve } from "path"
+import { dirname } from "../lib/util.js"
 
-// TODO: This test does not work. In fact, it completely blocks the test and aborts it. See https://github.com/gbv/jskos-cli/issues/32.
+const exampleFile = name => resolve(dirname(import.meta.url), "../examples/", name)
+const jsonFile = name => JSON.parse(fs.readFileSync(exampleFile(name)))
+import convert from "../lib/jskos-convert.js"
+import { Writable } from "stream"
 
 describe("convert-concepts", () => {
 
   it("converts concepts with level", (done) => {
-    console.log("THIS TEST NEEDS TO BE FIXED! See https://github.com/gbv/jskos-cli/issues/32.")
-    done()
-    return
+
+    let expectedJSON = fs.readFileSync(exampleFile("scheme.ndjson"), "utf8")
+
+    const outStream = new Writable({
+      write(chunk, encoding, callback) {
+        chunk = chunk.toString()
+        if (expectedJSON.startsWith(chunk)) {
+          expectedJSON = expectedJSON.replace(chunk, "")
+          callback()
+        } else {
+          throw new Error(`Unexpected chunk`, chunk)
+        }
+        if (expectedJSON.trim() === "") {
+          done()
+        }
+      }
+    })
 
     const input = fs.createReadStream(exampleFile("scheme-levels.csv"))
 
     const registry = jsonFile("registry.json")
     const scheme = "example"
 
-    const conversion = convert({ from: "csv", to: "ndjson", type: "concept", registry, scheme })
-    pipeline(input, ...conversion, process.stdout, () => { })
+    const steps = convert({ from: "csv", to: "ndjson", type: "concept", registry, scheme })
+
+    let stream = input
+    for (let i = 0; i < steps.length; i += 1) {
+      stream = stream.pipe(steps[i])
+    }
+    stream.pipe(outStream)
   })
 
 })

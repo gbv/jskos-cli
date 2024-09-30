@@ -1,8 +1,10 @@
-const assert = require("assert")
-const fs = require("fs")
-const { execFile } = require("child_process")
-const { resolve } = require("path")
-const file = (name) => resolve(__dirname, "../", name)
+import assert from "assert"
+import fs from "fs"
+import { execFile } from "child_process"
+import { resolve } from "path"
+import { dirname } from "../lib/util.js"
+
+const file = (name) => resolve(dirname(import.meta.url), "../", name)
 
 const validate = (args, callback) => {
   execFile(file("bin/jskos-validate"), args, callback)
@@ -61,6 +63,8 @@ describe("jskos-convert", () => {
     const input = file("test/test-concepts.csv")
     const scheme = file("test/test-scheme.json")
     convert(["concepts", "-s", scheme, "-t", "ndjson", "-m", input], (error, stdout, stderr) => {
+      console.log(stdout)
+      console.log(stderr)
       const expected = fs.readFileSync(input.replace(".csv", ".ndjson")).toString().trim()
       const output = (""+stdout).trim()
       assert.strictEqual(expected, output)

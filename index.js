@@ -1,4 +1,4 @@
-const convert = require("./lib/jskos-convert")
-const { validate } = require("jskos-tools")
+import convert from "./lib/jskos-convert"
+import { validate } from "jskos-tools"
 
-module.exports = { convert, validate }
+export { convert, validate }

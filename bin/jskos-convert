@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const program = require("../lib/cli")
-const convert = require("../lib/convert-action")
-const { guessObjectType } = require("jskos-tools")
+import program from "../lib/cli.js"
+import convert from "../lib/convert-action.js"
+import { guessObjectType } from "jskos-tools"
 
 program
   .usage("[options] [type] [files...]")

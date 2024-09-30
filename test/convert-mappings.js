@@ -1,6 +1,6 @@
-const assert = require("assert")
-const { ConceptScheme } = require("jskos-tools")
-const mappingsFromRows = require("../lib/csv-to-mapping")
+import assert from "assert"
+import { ConceptScheme } from "jskos-tools"
+import mappingsFromRows from "../lib/csv-to-mapping.js"
 
 // { fromNotation: "612.111", toNotation: "4070945-0", type: "exact" }
 // { fromNotation: "612.112", toNotation: "4074195-3", type: "exact" }
@@ -71,9 +71,9 @@ describe("convert-mappings", () => {
     output.push({ ...output[0], creator: [{ uri: "https://example.com", prefLabel: { en: "Test" } }] })
     var result
     transform.push = x => {
-      result = x 
+      result = x
     }
-    input.forEach((row, index) => { 
+    input.forEach((row, index) => {
       transform._transform(row, undefined, () => {
         assert.deepEqual(result, output[index])
       })
@@ -82,5 +82,3 @@ describe("convert-mappings", () => {
     done()
   })
 })
-
-

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const anystream = require("json-anystream")
-const program = require("../lib/cli")
-const { guessObjectType } = require("jskos-tools")
-const jskosValidate = require("jskos-validate")
-const readline = require("readline")
+import fs from "fs"
+import * as anystream from "json-anystream"
+import program from "../lib/cli.js"
+import { guessObjectType } from "jskos-tools"
+import { validate as jskosValidate } from "jskos-validate"
+import readline from "readline"
 
 function message(msg, color=0) {
   program.log(process.stdout.isTTY && color ? `\x1b[${color}m${msg}\x1b[0m` : msg)

@@ -7,6 +7,7 @@
     "jskos-validate": "./bin/jskos-validate",
     "jskos-convert": "./bin/jskos-convert"
   },
+  "type": "module",
   "files": [
     "bin/",
     "lib/"
@@ -44,8 +45,8 @@
   ],
   "author": "Jakob Voß",
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-gbv": "^1.1.0",
+    "eslint": "~9.11",
+    "eslint-config-gbv": "~2.1",
     "lint-staged": "^15.2.2",
     "mocha": "^10.3.0",
     "pre-commit": "^1.2.2"
@@ -54,8 +55,8 @@
     "commander": "^11.1.0",
     "csv": "^6.3.8",
     "jskos-tools": "^1.0.35",
-    "jskos-validate": "^0.6.0",
-    "json-anystream": "^1.1.1",
+    "jskos-validate": "^1.0.0",
+    "json-anystream": "^2.0.1",
     "jsonld": "^8.3.2",
     "ndjson": "^2.0.0",
     "needle": "^3.3.1",
