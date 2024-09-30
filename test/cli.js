@@ -67,8 +67,6 @@ describe("jskos-convert", () => {
       const input = file(`test/${filename}`)
       const scheme = file("test/test-scheme.json")
       convert(["concepts", "-s", scheme, "-t", "ndjson", "-m", input], (error, stdout, stderr) => {
-        console.log(stdout)
-        console.log(stderr)
         const expected = fs.readFileSync(input.replace(".csv", ".ndjson")).toString().trim()
         const output = (""+stdout).trim()
         assert.strictEqual(expected, output)
