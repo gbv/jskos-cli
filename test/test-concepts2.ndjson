@@ -1,0 +1,2 @@
+{"uri":"http://example.com/A","notation":["A"],"inScheme":[{"uri":"http://example.com/"}],"prefLabel":{"de":"Test A"},"topConceptOf":[{"uri":"http://example.com/"}]}
+{"uri":"http://example.com/A.1","notation":["A.1"],"inScheme":[{"uri":"http://example.com/"}],"prefLabel":{"de":"Test A.1"},"broader":[{"uri":"http://example.com/A","notation":["A"]}]}
