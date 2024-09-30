@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --no-deprecation
 
 import fs from "fs"
 import * as anystream from "json-anystream"
