@@ -1,4 +1,4 @@
-/* eslint-disable no-unreachable */
+ 
 import fs from "fs"
 import { resolve } from "path"
 import { dirname } from "../lib/util.js"
@@ -21,12 +21,12 @@ describe("convert-concepts", () => {
           expectedJSON = expectedJSON.replace(chunk, "")
           callback()
         } else {
-          throw new Error(`Unexpected chunk`, chunk)
+          throw new Error("Unexpected chunk", chunk)
         }
         if (expectedJSON.trim() === "") {
           done()
         }
-      }
+      },
     })
 
     const input = fs.createReadStream(exampleFile("scheme-levels.csv"))

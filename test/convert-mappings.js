@@ -69,7 +69,7 @@ describe("convert-mappings", () => {
     // Creator 3: name and URI
     input.push({ ...input[0], creator: "https://example.com Test" })
     output.push({ ...output[0], creator: [{ uri: "https://example.com", prefLabel: { en: "Test" } }] })
-    var result
+    let result
     transform.push = x => {
       result = x
     }
