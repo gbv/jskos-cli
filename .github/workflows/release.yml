@@ -10,26 +10,30 @@ on:
 jobs:
   npm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 20.x
-        registry-url: https://registry.npmjs.org/
-    - run: npm install
-    - run: npm publish --access=public
+        registry-url: https://registry.npmjs.org
+    - name: Install dependencies
+      run: |
+        npm ci
+    - name: Publish to npm
+      run: npm publish --provenance --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   github:
     runs-on: ubuntu-latest
     steps:
-    - id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v4
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref }}
-        release_name: jskos-cli ${{ github.ref }}
+        name: jskos-cli ${{ github.ref_name }}
         body: TODO
         draft: true
         prerelease: false
