@@ -16,6 +16,7 @@ This repository contains command client applications for working with the [JSKOS
   - [jskos-validate](#jskos-validate)
   - [jskos-convert](#jskos-convert)
 - [Maintainers](#maintainers)
+- [Publish](#publish)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -106,6 +107,29 @@ Mappings in CSV format can be specified with:
 
 - [@nichtich](https://github.com/nichtich)
 - [@stefandesu](https://github.com/stefandesu)
+
+## Publish
+
+Please work on the `dev` branch during development (or better yet, develop in a feature branch and merge into `dev` when ready).
+
+When a new release is ready (i.e. the features are finished, merged into `dev`, and all tests succeed), run the included release script (replace "patch" with "minor" or "major" if necessary):
+
+```bash
+npm run release:patch # or minor, or major
+```
+
+This will:
+- Check that we are on `dev`
+- Run tests and build to make sure everything works
+- Make sure `dev` is up-to-date
+- Run `npm version patch` (or "minor"/"major")
+- Push changes to `dev`
+- Switch to `main`
+- Merge changes from `dev`
+- Push `main` with tags
+- Switch back to `dev`
+
+After running this, GitHub Actions will **automatically publish the new version to npm**. It will also create a new GitHub Release draft. Please **edit and publish the release draft manually**.
 
 ## Contributing
 
