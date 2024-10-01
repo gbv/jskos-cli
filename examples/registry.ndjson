@@ -1,0 +1,2 @@
+{"uri": "http://example.org/voc","notation": ["example"],"notationPattern": "[A-Z][0-9]*","namespace": "http://example.org/voc/"}
+{"uri": "http://example.com/voc","notationPattern": "[a-z]","namespace": "http://example.com/voc/"}

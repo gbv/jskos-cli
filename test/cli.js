@@ -87,5 +87,16 @@ describe("jskos-convert", () => {
     })
   })
 
+  it("should use registry file to look up scheme, if given", (done) => {
+    const input = file("test/test-concepts.csv")
+    const registry = file("test/test-registry.ndjson")
+    convert(["concepts", "-r", registry, "-s", "http://example.com/", "-t", "ndjson", "-m", input], (error, stdout, stderr) => {
+      const expected = fs.readFileSync(input.replace(".csv", ".ndjson")).toString().trim()
+      const output = (""+stdout).trim()
+      assert.strictEqual(expected, output)
+      assert.equal(stderr, "")
+      done()
+    })
+  })
   
 })
