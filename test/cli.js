@@ -49,7 +49,7 @@ describe("jskos-convert", () => {
 
   it("should return ndjson by default", (done) => {
     let input = file("test/valid-mapping.ndjson")
-    convert([input], (error, stdout, stderr) => {
+    convert(["mapping", input], (error, stdout, stderr) => {
       let expect = JSON.parse(fs.readFileSync(input))
       let output = JSON.parse(""+stdout)
       assert.deepEqual(expect, output)
@@ -75,6 +75,17 @@ describe("jskos-convert", () => {
       })
     })
   }
+
+  it("should not convert when namespace for scheme is missing", (done) => {
+    const input = file("test/test-concepts.csv")
+    const scheme = file("test/test-scheme-fail.json")
+    convert(["concepts", "-s", scheme, "-t", "ndjson", "-m", input], (error, stdout, stderr) => {
+      assert.equal(error?.code, 1)
+      // Make sure error messages mentions "namespace"
+      assert.ok(stderr.includes("namespace"))
+      done()
+    })
+  })
 
   
 })
