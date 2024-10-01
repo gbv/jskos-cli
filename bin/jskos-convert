@@ -32,5 +32,6 @@ if (type) {
 
 const files = args.length ? args : ["-"]
 const options = program.opts()
+options.exitProcess = true
 
 convert(options, type, files)
