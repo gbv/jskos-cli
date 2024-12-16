@@ -1,3 +1,7 @@
+## 0.6.3
+
+- Update dependency on jskos-validate
+
 ## 0.6.2
 
 - Add option: --delimiter
