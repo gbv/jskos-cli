@@ -1,3 +1,7 @@
+## 0.7.3
+
+- Update to JSKOS 0.6.0
+
 ## 0.6.3
 
 - Update dependency on jskos-validate
