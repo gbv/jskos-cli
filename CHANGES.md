@@ -1,3 +1,7 @@
+## 0.7.4
+
+- Add fields `created` and `uri` when converting CSV to mappings
+
 ## 0.7.3
 
 - Update to JSKOS 0.6.0

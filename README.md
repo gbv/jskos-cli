@@ -101,13 +101,13 @@ Mappings in CSV format can be specified with:
 * `type`
 * `creator` (URI and/or name, separated by a space, in that order; e.g: "https://github.com/stefandesu Stefan Peters")
 * `created` (Date of creation)
+* `uri` (URI of a mapping)
 
 1-to-n mappings are not supported yet.
 
 ## Maintainers
 
 - [@nichtich](https://github.com/nichtich)
-- [@stefandesu](https://github.com/stefandesu)
 
 ## Publish
 
