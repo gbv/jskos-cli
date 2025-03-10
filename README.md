@@ -134,6 +134,7 @@ graph TD
 ## Maintainers
 
 - [@nichtich](https://github.com/nichtich)
+- [@rodolv-commons](https://github.com/rodolv-commons)
 
 ## Publish
 
