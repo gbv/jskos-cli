@@ -15,6 +15,7 @@ This repository contains command client applications for working with the [JSKOS
 - [Usage](#usage)
   - [jskos-validate](#jskos-validate)
   - [jskos-convert](#jskos-convert)
+- [Data flow](#data-flow)
 - [Maintainers](#maintainers)
 - [Publish](#publish)
 - [Contributing](#contributing)
@@ -105,6 +106,30 @@ Mappings in CSV format can be specified with:
 * `uri` (URI of a mapping)
 
 1-to-n mappings are not supported yet.
+
+## Data flow
+
+```mermaid
+graph TD
+    jskosin(JSKOS)
+    csvin(CSV)
+    report(report)
+    jskosout(JSKOS)
+    csvout(CSV)
+    
+    jskosin --> jskos-validate
+    jskosin -- schemes, mappings & concepts --> jskos-convert
+    csvin -- mappings & concepts --> jskos-convert
+
+    jskos-convert -- mappings & concepts --> csvout
+    jskos-convert -- mappings & concepts --> jskosout
+
+    subgraph jskos-cli [ ]
+        jskos-validate[**jskos-validate**]
+        jskos-convert[**jskos-convert**]        
+    end
+    jskos-validate --> report
+```
 
 ## Maintainers
 
