@@ -100,3 +100,44 @@ describe("jskos-convert", () => {
   })
   
 })
+
+
+const enrich = (args, callback) => {
+  execFile(file("bin/jskos-enrich"), args, callback)
+}
+
+
+describe("jskos-enrich", () => {
+
+  it("should enrich subject labels", (done) => {
+    const inputFile = file("test/test-subjects-input.ndjson")
+    const outputFile = file("test/test-subjects-output.ndjson")
+    const expectedFile = file("test/test-subjects-expected.ndjson")
+
+    // Remove previous output file if any
+    if (fs.existsSync(outputFile)) {
+      fs.unlinkSync(outputFile)
+    }
+   
+    enrich(["-e", inputFile, outputFile], (error, stdout, stderr) => {
+      assert.strictEqual(stderr, "")
+      assert.strictEqual(error, null)
+
+      // Read both output and expected files
+      const expected = fs.readFileSync(expectedFile, "utf8").trim().split("\n")
+      const output = fs.readFileSync(outputFile, "utf8").trim().split("\n")
+
+      assert.strictEqual(output.length, expected.length)
+
+      output.forEach((line, i) => {
+        assert.deepStrictEqual(JSON.parse(line), JSON.parse(expected[i]))
+      })
+
+      // Delete outputFile in the test folder
+      fs.unlinkSync(outputFile) 
+
+      done()
+    }) 
+  })
+
+})
