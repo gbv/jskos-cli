@@ -5,7 +5,8 @@
   "homepage": "https://github.com/gbv/jskos-cli",
   "bin": {
     "jskos-validate": "./bin/jskos-validate",
-    "jskos-convert": "./bin/jskos-convert"
+    "jskos-convert": "./bin/jskos-convert",
+    "jskos-enrich": "./bin/jskos-enrich"
   },
   "type": "module",
   "files": [
@@ -54,6 +55,7 @@
   "dependencies": {
     "commander": "^12.1.0",
     "csv": "^6.3.11",
+    "jskos-cli": "^0.7.6",
     "jskos-tools": "^1.0.43",
     "jskos-validate": "^1.1.2",
     "json-anystream": "^2.0.1",

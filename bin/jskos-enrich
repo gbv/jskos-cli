@@ -1,0 +1,25 @@
+#!/usr/bin/env -S node --no-deprecation
+
+import program from "../lib/cli.js"
+import enrich from "../lib/enrich-action.js"
+
+program
+  .usage("[options] [files...]")
+  .option("-v, --verbose", "show detailed error messages")
+  .option("-e, --enrich", "enrich input file")
+  .example("enrich input-data.ndjson output-data.ndjson ", "Enrich records with subject labels")
+
+
+const args = program.parseArgs(process.argv)
+const files = args.length ? args : ["-"]
+const options = program.opts()
+
+options.exitProcess = true
+
+if (options.enrich && files) {
+  options.inputFile = files[0]
+  options.outputFile = files[1]
+}
+
+
+await enrich(options, files)
