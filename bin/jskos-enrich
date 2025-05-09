@@ -21,5 +21,12 @@ if (options.enrich && files) {
   options.outputFile = files[1]
 }
 
-
-await enrich(options, files)
+(async () => {
+  try {
+    await enrich(options, files)
+    process.exit(0)
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+})()
