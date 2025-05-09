@@ -26,7 +26,12 @@ if (options.enrich && files) {
     await enrich(options, files)
     process.exit(0)
   } catch (err) {
-    console.error(err)
+    // if you want to show stack on verbose only:
+    if (options.verbose) {
+      console.error(err)
+    } else {
+      console.error(err.message || err)
+    }
     process.exit(1)
   }
 })()
