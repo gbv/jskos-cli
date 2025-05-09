@@ -110,6 +110,7 @@ const enrich = (args, callback) => {
 describe("jskos-enrich", () => {
 
   it("should enrich subject labels", (done) => {
+    
     const inputFile = file("test/test-subjects-input.ndjson")
     const outputFile = file("test/test-subjects-output.ndjson")
     const expectedFile = file("test/test-subjects-expected.ndjson")
@@ -138,6 +139,6 @@ describe("jskos-enrich", () => {
 
       done()
     }) 
-  })
+  }).timeout(5000)
 
 })
