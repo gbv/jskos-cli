@@ -7,14 +7,6 @@ import { guessObjectType } from "jskos-tools"
 import { validate as jskosValidate } from "jskos-validate"
 import readline from "readline"
 
-function message(msg, color=0) {
-  program.log(process.stdout.isTTY && color ? `\x1b[${color}m${msg}\x1b[0m` : msg)
-}
-
-function error(msg) {
-  program.error(process.stderr.isTTY ? `\x1b[31m${msg}\x1b[0m` : msg)
-}
-
 program
   .usage("[options] [type] <files...>")
   .option("-v, --verbose", "show error messages")
@@ -31,7 +23,7 @@ const options = program.opts()
   if (type in jskosValidate) {
     type = args.shift().replace(/s$/,"")
   } else if (!fs.existsSync(args[0])) {
-    error(`unknown object type: ${args[0]}`)
+    program.error(`unknown object type: ${args[0]}`)
     process.exit(1)
   }
 
@@ -42,10 +34,10 @@ const options = program.opts()
     const result = validator(data, { unknownFields, rememberSchemes })
     if (!result) {
       if (options.verbose) {
-        error(`# invalid ${type} ${counter}:`)
-        validator.errorMessages.map(msg => console.error(`# ${type} ${msg}`))
+        program.error(`# invalid ${type} ${counter}:`)
+        validator.errorMessages.map(msg => program.error(`# ${type} ${msg}`))
       } else {
-        error(`# invalid ${type} ${counter}`)
+        program.error(`# invalid ${type} ${counter}`)
       }
     }
     return result
@@ -63,9 +55,9 @@ const options = program.opts()
       }
 
       if (ok) {
-        message(`ok     ${i+1} - ${file}`, 32)
+        program.message(`ok     ${i+1} - ${file}`, 32)
       } else {
-        message(`not ok ${i+1} - ${file}`, 31)
+        program.message(`not ok ${i+1} - ${file}`, 31)
         if (fail < 99) {
           fail++
         }

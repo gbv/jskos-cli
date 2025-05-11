@@ -120,7 +120,7 @@ describe("jskos-enrich", () => {
       fs.unlinkSync(outputFile)
     }
    
-    enrich(["-e", inputFile, outputFile], (error, stdout, stderr) => {
+    enrich([inputFile, outputFile], (error, stdout, stderr) => {
       assert.strictEqual(stderr, "")
       assert.strictEqual(error, null)
 
