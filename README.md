@@ -117,13 +117,12 @@ Options:
   -V, --version       output the version number
   -q, --quiet         suppress status and warning messages
   -v, --verbose       show detailed error messages
-  --schemes <file>     path to a custom configuration file (default: ./config.js)
+  --schemes <file>     path to a custom configuration file (default: ./config/default_config.js)
   -h, --help          output usage information
 
 Examples:
-  $ jskos-enrich --enrich input.ndjson output.ndjson
-  $ jskos-enrich --enrich --scheme config/my-config.js data.ndjson enriched-data.ndjson
-  $ cat records.ndjson | jskos-enrich --enrich - > enriched.ndjson
+  $ jskos-enrich input.ndjson input_enriched.ndjson
+  $ jskos-enrich input.ndjson input_enriched.ndjson --schemes ./config/custom_config.js
 ~~~
 
 The command reads JSKOS records (one per line) from file input in `ndjson` format, looks for subject[].uri entries, and enriches each `subject` entry by adding a `prefLabel` field from external registries (e.g. DDC, EuroVoc, ILC) using cocoda-sdk and the provided configuration.
