@@ -107,11 +107,42 @@ Mappings in CSV format can be specified with:
 
 1-to-n mappings are not supported yet.
 
+
+### jskos-enrich
+
+~~~
+Usage: jskos-enrich [options] [files...]
+
+Options:
+  -V, --version       output the version number
+  -q, --quiet         suppress status and warning messages
+  -v, --verbose       show detailed error messages
+  --schemes <file>     path to a custom configuration file (default: ./config.js)
+  -h, --help          output usage information
+
+Examples:
+  $ jskos-enrich --enrich input.ndjson output.ndjson
+  $ jskos-enrich --enrich --scheme config/my-config.js data.ndjson enriched-data.ndjson
+  $ cat records.ndjson | jskos-enrich --enrich - > enriched.ndjson
+~~~
+
+The command reads JSKOS records (one per line) from file input in `ndjson` format, looks for subject[].uri entries, and enriches each `subject` entry by adding a `prefLabel` field from external registries (e.g. DDC, EuroVoc, ILC) using cocoda-sdk and the provided configuration.
+
+If --schemes is provided, it loads a custom JavaScript file exporting an array of concept schemes. The option can be used as follows:
+```bash
+jskos-enrich ./input.ndjson ./input_enriched.ndjson --schemes ./config/custom_config.js
+```
+In this example, the records from `input.ndjson` are enriched using the configuration defined in `custom_config.js`, located in the `config` folder. 
+
+If --quiet is enabled, warnings for unmatched or missing URIs are suppressed.
+
+Enriched records are written to a specified output file.
+
 ## Data flow
 
 ```mermaid
 graph TD
-    jskosin(JSKOS)
+   jskosin(JSKOS)
     csvin(CSV)
     report(report)
     jskosout(JSKOS)
@@ -120,15 +151,18 @@ graph TD
     jskosin --> jskos-validate
     jskosin -- schemes, mappings & concepts --> jskos-convert
     csvin -- mappings & concepts --> jskos-convert
+    jskosin --> jskos-enrich
 
     jskos-convert -- mappings & concepts --> csvout
     jskos-convert -- mappings & concepts --> jskosout
 
     subgraph jskos-cli [ ]
         jskos-validate[**jskos-validate**]
-        jskos-convert[**jskos-convert**]        
+        jskos-convert[**jskos-convert**]
+        jskos-enrich[**jskos-enrich**]
     end
     jskos-validate --> report
+    jskos-enrich --> JSKOS
 ```
 
 ## Maintainers
