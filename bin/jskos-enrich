@@ -1,12 +1,12 @@
 #!/usr/bin/env -S node --no-deprecation
-
 import program from "../lib/cli.js"
 import enrich from "../lib/enrich-action.js"
 
 program
   .usage("[options] [files...]")
   .option("-v, --verbose", "show detailed error messages")
-  .option("--schemes <file>", "Path to config file", "./config/default_config.json")
+  .option("--properties <list>", "comma-separated JSKOS properties to enrich (default: all set-type props)")
+  .option("--schemes <file>", "Path to config file", "../config/default_config.json")
   .example("input.ndjson output.ndjson ", "Enrich records with subject labels")
   .example("input.ndjson output.ndjson --schemes ./config/custom_config.json", "Enrich records with subject labels passing a config file")
 
