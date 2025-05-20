@@ -6,6 +6,7 @@ export default [
     files: [
       "bin/jskos-convert",
       "bin/jskos-validate",
+      "bin/jskos-enrich",
     ],
   },
   {

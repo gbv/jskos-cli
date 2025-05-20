@@ -107,11 +107,78 @@ Mappings in CSV format can be specified with:
 
 1-to-n mappings are not supported yet.
 
+
+### jskos-enrich
+
+~~~
+Usage: jskos-enrich [options] [input.ndjson] [output.ndjson]
+
+Options:
+  -V, --version                  Output the version number
+  -q, --quiet                    Suppress enrichment warnings (default)
+  -v, --verbose                  Show detailed warning and error messages
+  --properties <list>            Comma-separated JSKOS properties to enrich
+                                 (default: all set-type props:
+                                 creator, contributor, source, publisher,
+                                 partOf, startPlace, endPlace, place,
+                                 replacedBy, basedOn, subject, subjectOf)
+  --schemes <file>               Path to a custom configuration file
+                                 (default: ./config/default_config.json)
+  -h, --help                     Output usage information
+
+Examples:
+  # Enrich subjects, creators, etc., using default config, no warnings
+  $ jskos-enrich input.ndjson output_enriched.ndjson
+
+  # Enrich only subject and creator fields
+  $ jskos-enrich input.ndjson output_enriched.ndjson --properties subject,creator
+
+  # Use a custom scheme configuration and see warnings
+  $ jskos-enrich -v input.ndjson output_enriched.ndjson  --schemes ../config/custom_config.json
+~~~
+
+
+#### Description
+
+The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), iterates over specified array-properties (e.g. `subject`, `creator`, `publisher`, etc.), and enriches each entry by adding a `prefLabel` from external concept registries (e.g. DDC, EuroVoc, ILC) via the configured APIs.
+
+- **Input:** one JSKOS record per line in `input.ndjson`
+- **Output:** enriched records written line-by-line to `output.ndjson`
+
+
+#### Options Detail
+  
+- **`--properties <list>`**  
+  Target which JSKOS `set-type` properties to enrich. Provide names separated by commas.  
+  **Default set:**
+  
+  ```
+  creator, contributor, source, publisher, partOf,
+  startPlace, endPlace, place,
+  replacedBy, basedOn, subject, subjectOf
+  ```
+  
+- **`--schemes <file>`**  
+  Path to a JSON configuration file that exports an array of scheme definitions, each with:
+  
+  - `uriPattern` for matching URIs
+  - `API` endpoints for enrichment  
+    Defaults to `./config/default_config.json`.
+
+#### Behavior
+
+1. **Load configuration** from `--schemes` file (JSON).
+2. **Determine properties**: split `--properties` or use default list.
+3. **Collect identifiers**: for each record and property, gather `uri` or `url` values, skipping entries already having `prefLabel`.
+4. **Fetch labels in parallel** via `cocoda-sdk` or registry APIs.
+5. **Assign** `prefLabel` back onto each item; emit warnings only in verbose mode.
+6. **Write** enriched records to output NDJSON.
+
 ## Data flow
 
 ```mermaid
 graph TD
-    jskosin(JSKOS)
+   jskosin(JSKOS)
     csvin(CSV)
     report(report)
     jskosout(JSKOS)
@@ -120,15 +187,18 @@ graph TD
     jskosin --> jskos-validate
     jskosin -- schemes, mappings & concepts --> jskos-convert
     csvin -- mappings & concepts --> jskos-convert
+    jskosin --> jskos-enrich
 
     jskos-convert -- mappings & concepts --> csvout
     jskos-convert -- mappings & concepts --> jskosout
 
     subgraph jskos-cli [ ]
         jskos-validate[**jskos-validate**]
-        jskos-convert[**jskos-convert**]        
+        jskos-convert[**jskos-convert**]
+        jskos-enrich[**jskos-enrich**]
     end
     jskos-validate --> report
+    jskos-enrich --> JSKOS
 ```
 
 ## Maintainers

@@ -1,0 +1,47 @@
+#!/usr/bin/env -S node --no-deprecation
+import program from "../lib/cli.js"
+import enrich from "../lib/enrich-action.js"
+import { DEFAULT_JSKOS_PROPERTIES } from "../lib/util.js"
+
+
+program
+  .usage("[options] [files...]")
+  .option("-v, --verbose", "show detailed error messages")
+  .option("--properties <list>", "comma-separated JSKOS properties to enrich (default: all set-type props)")
+  .option("--schemes <file>", "Path to config file", "../config/default_config.json")
+  .example("input.ndjson output.ndjson ", "Enrich records with subject labels")
+  .example("input.ndjson output.ndjson --schemes ./config/custom_config.json", "Enrich records with subject labels passing a config file")
+
+const args = program.parseArgs(process.argv)
+const files = args.length ? args : ["-"]
+const options = program.opts()
+
+// Process properties of the record to be enriched, passed as argument
+// only valid jskos property are processed 
+if (options.properties) {
+  options.properties = options.properties
+    .split(",")
+    .map(p => p.trim())
+    .filter(p => DEFAULT_JSKOS_PROPERTIES.includes(p))
+  // Print valid properties from user input 
+  program.message(`Valid properties are => ${options.properties}`)
+} else {
+  // Set to default properties
+  options.properties = DEFAULT_JSKOS_PROPERTIES
+}
+
+options.quiet = !options.verbose
+ 
+;(async () => {
+  try {
+    await enrich(files, options)
+  } catch (err) {
+    // if you want to show stack on verbose only:
+    if (options.verbose) {
+      console.error(err)
+    } else {
+      console.error(err.message || err)
+    }
+    process.exit(1)
+  }
+})()
