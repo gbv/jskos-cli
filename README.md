@@ -15,6 +15,7 @@ This repository contains command client applications for working with the [JSKOS
 - [Usage](#usage)
   - [jskos-validate](#jskos-validate)
   - [jskos-convert](#jskos-convert)
+  - [jskos-enrich](#jskos-enrich)
 - [Data flow](#data-flow)
 - [Maintainers](#maintainers)
 - [Publish](#publish)
@@ -137,26 +138,14 @@ Examples:
   $ jskos-enrich -v input.ndjson output_enriched.ndjson  --schemes ../config/custom_config.json
 ~~~
 
-
-#### Description
-
-The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), iterates over specified array-properties (e.g. `subject`, `creator`, `publisher`, etc.), and enriches each entry by adding a `prefLabel` from external concept registries (e.g. DDC, EuroVoc, ILC) via the configured APIs.
+The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), iterates over specified array-properties (e.g. `subject`, `creator`, `publisher`, etc.), and enriches each entry by adding a `prefLabel` from external concept registries (e.g. DDC, EuroVoc, ILC) via the configured APIs given in `--schemes`.
 
 - **Input:** one JSKOS record per line in `input.ndjson`
+
 - **Output:** enriched records written line-by-line to `output.ndjson`
 
-
-#### Options Detail
-  
 - **`--properties <list>`**  
-  Target which JSKOS `set-type` properties to enrich. Provide names separated by commas.  
-  **Default set:**
-  
-  ```
-  creator, contributor, source, publisher, partOf,
-  startPlace, endPlace, place,
-  replacedBy, basedOn, subject, subjectOf
-  ```
+  Target which JSKOS `set-type` properties to enrich. Provide names separated by commas. Default: "creator,contributor,source,publisher,partOf,startPlace,endPlace,place,replacedBy,basedOn,subject,subjectOf".
   
 - **`--schemes <file>`**  
   Path to a JSON configuration file that exports an array of scheme definitions, each with:
@@ -165,14 +154,7 @@ The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), ite
   - `API` endpoints for enrichment  
     Defaults to `./config/default_config.json`.
 
-#### Behavior
-
-1. **Load configuration** from `--schemes` file (JSON).
-2. **Determine properties**: split `--properties` or use default list.
-3. **Collect identifiers**: for each record and property, gather `uri` or `url` values, skipping entries already having `prefLabel`.
-4. **Fetch labels in parallel** via `cocoda-sdk` or registry APIs.
-5. **Assign** `prefLabel` back onto each item; emit warnings only in verbose mode.
-6. **Write** enriched records to output NDJSON.
+For each record and property, `uri` or `url` values are collected, skipping entries already having `prefLabel`, and corresponding concepts are fetched in parallel via cocoda-sdk. If no `prefLabel` was found, warnings are emitted in verbose mode.
 
 ## Data flow
 
