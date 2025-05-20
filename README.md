@@ -111,31 +111,68 @@ Mappings in CSV format can be specified with:
 ### jskos-enrich
 
 ~~~
-Usage: jskos-enrich [options] [files...]
+Usage: jskos-enrich [options] [input.ndjson] [output.ndjson]
 
 Options:
-  -V, --version       output the version number
-  -q, --quiet         suppress status and warning messages
-  -v, --verbose       show detailed error messages
-  --schemes <file>     path to a custom configuration file (default: ./config/default_config.js)
-  -h, --help          output usage information
+  -V, --version                  Output the version number
+  -q, --quiet                    Suppress enrichment warnings (default)
+  -v, --verbose                  Show detailed warning and error messages
+  --properties <list>            Comma-separated JSKOS properties to enrich
+                                 (default: all set-type props:
+                                 creator, contributor, source, publisher,
+                                 partOf, startPlace, endPlace, place,
+                                 replacedBy, basedOn, subject, subjectOf)
+  --schemes <file>               Path to a custom configuration file
+                                 (default: ./config/default_config.json)
+  -h, --help                     Output usage information
 
 Examples:
-  $ jskos-enrich input.ndjson input_enriched.ndjson
-  $ jskos-enrich input.ndjson input_enriched.ndjson --schemes ./config/custom_config.js
+  # Enrich subjects, creators, etc., using default config, no warnings
+  $ jskos-enrich input.ndjson output_enriched.ndjson
+
+  # Enrich only subject and creator fields
+  $ jskos-enrich input.ndjson output_enriched.ndjson --properties subject,creator
+
+  # Use a custom scheme configuration and see warnings
+  $ jskos-enrich -v input.ndjson output_enriched.ndjson  --schemes ../config/custom_config.json
 ~~~
 
-The command reads JSKOS records (one per line) from file input in `ndjson` format, looks for subject[].uri entries, and enriches each `subject` entry by adding a `prefLabel` field from external registries (e.g. DDC, EuroVoc, ILC) using cocoda-sdk and the provided configuration.
 
-If --schemes is provided, it loads a custom JavaScript file exporting an array of concept schemes. The option can be used as follows:
-```bash
-jskos-enrich ./input.ndjson ./input_enriched.ndjson --schemes ./config/custom_config.js
-```
-In this example, the records from `input.ndjson` are enriched using the configuration defined in `custom_config.js`, located in the `config` folder. 
+#### Description
 
-If --quiet is enabled, warnings for unmatched or missing URIs are suppressed.
+The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), iterates over specified array-properties (e.g. `subject`, `creator`, `publisher`, etc.), and enriches each entry by adding a `prefLabel` from external concept registries (e.g. DDC, EuroVoc, ILC) via the configured APIs.
 
-Enriched records are written to a specified output file.
+- **Input:** one JSKOS record per line in `input.ndjson`
+- **Output:** enriched records written line-by-line to `output.ndjson`
+
+
+#### Options Detail
+  
+- **`--properties <list>`**  
+  Target which JSKOS `set-type` properties to enrich. Provide names separated by commas.  
+  **Default set:**
+  
+  ```
+  creator, contributor, source, publisher, partOf,
+  startPlace, endPlace, place,
+  replacedBy, basedOn, subject, subjectOf
+  ```
+  
+- **`--schemes <file>`**  
+  Path to a JSON configuration file that exports an array of scheme definitions, each with:
+  
+  - `uriPattern` for matching URIs
+  - `API` endpoints for enrichment  
+    Defaults to `./config/default_config.json`.
+
+#### Behavior
+
+1. **Load configuration** from `--schemes` file (JSON).
+2. **Determine properties**: split `--properties` or use default list.
+3. **Collect identifiers**: for each record and property, gather `uri` or `url` values, skipping entries already having `prefLabel`.
+4. **Fetch labels in parallel** via `cocoda-sdk` or registry APIs.
+5. **Assign** `prefLabel` back onto each item; emit warnings only in verbose mode.
+6. **Write** enriched records to output NDJSON.
 
 ## Data flow
 
