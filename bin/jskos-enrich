@@ -6,9 +6,9 @@ import enrich from "../lib/enrich-action.js"
 program
   .usage("[options] [files...]")
   .option("-v, --verbose", "show detailed error messages")
-  .option("--schemes <file>", "Path to config file", "./config/default_config.js")
+  .option("--schemes <file>", "Path to config file", "./config/default_config.json")
   .example("input.ndjson output.ndjson ", "Enrich records with subject labels")
-  .example("input.ndjson output.ndjson --schemes ./config/custom_config.js", "Enrich records with subject labels passing a config file")
+  .example("input.ndjson output.ndjson --schemes ./config/custom_config.json", "Enrich records with subject labels passing a config file")
 
 const args = program.parseArgs(process.argv)
 const files = args.length ? args : ["-"]
