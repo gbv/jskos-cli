@@ -124,7 +124,7 @@ Options:
                                  partOf, startPlace, endPlace, place,
                                  replacedBy, basedOn, subject, subjectOf)
   --schemes <file>               Path to a custom configuration file
-                                 (default: ./config/default_config.json)
+                                 (i.e. : ./config/custom_config.json)
   -h, --help                     Output usage information
 
 Examples:
@@ -152,7 +152,8 @@ The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), ite
   
   - `uriPattern` for matching URIs
   - `API` endpoints for enrichment  
-    Defaults to `./config/default_config.json`.
+ 
+A sample configuration file is provided at `config/custom_config.json`, but it is intended for demonstration purposes only.  
 
 For each record and property, `uri` or `url` values are collected, skipping entries already having `prefLabel`, and corresponding concepts are fetched in parallel via cocoda-sdk. If no `prefLabel` was found, warnings are emitted in verbose mode.
 
