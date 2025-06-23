@@ -155,7 +155,7 @@ The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), ite
  
 A sample configuration file is provided at `config/custom_config.json`, but it is intended for demonstration purposes only.  
 
-For each record and property, `uri` or `url` values are collected, skipping entries already having `prefLabel`, and corresponding concepts are fetched in parallel via cocoda-sdk. If no `prefLabel` was found, warnings are emitted in verbose mode.
+For each record and property, `uri` values are collected, skipping entries already having `prefLabel`, and corresponding concepts are fetched in parallel via cocoda-sdk. If no `prefLabel` was found, warnings are emitted in verbose mode.
 
 ## Data flow
 
