@@ -45,7 +45,6 @@
   },
   "author": "Jakob Voß",
   "devDependencies": {
-    "cocoda-sdk": "^3.4.13",
     "eslint": "^9.19",
     "eslint-config-gbv": "~2.6",
     "husky": "^9.1.7",
@@ -54,6 +53,7 @@
     "yesno": "^0.4.0"
   },
   "dependencies": {
+    "cocoda-sdk": "^3.4.13",
     "commander": "^12.1.0",
     "csv": "^6.3.11",
     "jskos-tools": "^1.0.43",
