@@ -1,0 +1,5 @@
+{
+  "uri": "http://example.com/voc",
+  "notationPattern": "[a-z]",
+  "namespace": "http://example.com/voc/"
+}

@@ -23,6 +23,7 @@ describe("convert-mappings", () => {
       { fromNotation: "A1", toNotation: "x" },
       { fromNotation: "X2", toNotation: "y", type: "=" },
     ]
+    // TODO: move to examples/ file
     const output = [
       {
         from: {
