@@ -1,5 +1,5 @@
 import assert from "assert"
-import { ConceptScheme } from "jskos-tools"
+import { ConceptScheme, addMappingIdentifiers } from "jskos-tools"
 import mappingsFromRows from "../lib/csv-to-mapping.js"
 
 // { fromNotation: "612.111", toNotation: "4070945-0", type: "exact" }
@@ -80,5 +80,35 @@ describe("convert-mappings", () => {
     })
 
     done()
+  })
+
+  it("adds mapping sameness identifier", async () => {
+    const mapping = {
+      from: { memberSet: [{ uri: "http://example.org/voc/A1", notation: ["A1"] }] },
+      fromScheme: { uri: "http://example.org/voc" },
+      to: { memberSet: [{ uri: "http://example.com/voc/x", notation: ["x"] }] },
+      toScheme: { uri: "http://example.com/voc" },
+      type: ["http://www.w3.org/2004/02/skos/core#exactMatch"],
+    }
+    const result = await addMappingIdentifiers(mapping)
+    assert.ok(Array.isArray(result.identifier))
+    assert.ok(result.identifier.some(id => id.startsWith("mapping:")))
+    assert.ok(result.identifier.some(id => id.startsWith("urn:jskos:mapping:members:")))
+    assert.ok(result.identifier.some(id => id.startsWith("urn:jskos:mapping:content:")))
+  })
+
+  it("replaces existing mapping sameness identifier", async () => {
+    const mapping = {
+      from: { memberSet: [{ uri: "http://example.org/voc/A1", notation: ["A1"] }] },
+      fromScheme: { uri: "http://example.org/voc" },
+      to: { memberSet: [{ uri: "http://example.com/voc/x", notation: ["x"] }] },
+      toScheme: { uri: "http://example.com/voc" },
+      type: ["http://www.w3.org/2004/02/skos/core#exactMatch"],
+      identifier: ["mapping:oldid"],
+    }
+    const result = await addMappingIdentifiers(mapping)
+    const samenessIds = result.identifier.filter(id => id.startsWith("mapping:"))
+    assert.strictEqual(samenessIds.length, 1)
+    assert.ok(!samenessIds[0].includes("oldid"))
   })
 })
