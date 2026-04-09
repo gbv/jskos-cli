@@ -57,7 +57,7 @@
     "cocoda-sdk": "^3.4.13",
     "commander": "^12.1.0",
     "csv": "^6.4.1",
-    "jskos-tools": "^1.0.43",
+    "jskos-tools": "^1.2.0",
     "jskos-validate": "^1.2.0",
     "json-anystream": "^2.0.1",
     "jsonld": "^9.0.0",
