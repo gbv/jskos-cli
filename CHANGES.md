@@ -1,3 +1,7 @@
+## 0.8.5
+
+- Support mapping sameness identifier
+
 ## 0.8.4
 
 - Update to JSKOS 0.7.1
