@@ -78,6 +78,9 @@ Options:
   -p, --partof <uri>                     concordance URI
   -m, --marktop                          explicitly mark concepts without broader as top concepts
   --creator <uri and/or name>            add creator to mappings
+  --created <timestamp>                  add creation timestamp to mappings
+  -i, --identifier                       add mapping sameness identifier
+  --delimiter <char>                     CSV delimiter (default: ,)
   -h, --help                             display help for command
 
 Examples:
@@ -105,8 +108,9 @@ Mappings in CSV format can be specified with:
 * `creator` (URI and/or name, separated by a space, in that order; e.g: "https://github.com/stefandesu Stefan Peters")
 * `created` (Date of creation)
 * `uri` (URI of a mapping)
+* `identifier` (additional identifiers, separated by `|`. Only supported for CSV output with option `--identifier`)
 
-1-to-n mappings are not supported yet.
+1-to-n mappings are not supported yet in CSV format.
 
 
 ### jskos-enrich
@@ -176,9 +180,9 @@ graph TD
     jskos-convert -- mappings & concepts --> jskosout
 
     subgraph jskos-cli [ ]
-        jskos-validate[**jskos-validate**]
-        jskos-convert[**jskos-convert**]
-        jskos-enrich[**jskos-enrich**]
+        jskos-validate[jskos-validate]
+        jskos-convert[jskos-convert]
+        jskos-enrich[jskos-enrich]
     end
     jskos-validate --> report
     jskos-enrich --> JSKOS
