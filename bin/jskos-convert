@@ -18,6 +18,7 @@ program
   .option("-m, --marktop", "explicitly mark concepts without broader as top concepts")
   .option("--creator <uri and/or name>", "add creator to mappings")
   .option("--created <timestamp>", "add creation timestamp to mappings")
+  .option("-i, --identifier", "add mapping sameness identifier")
   .option("--delimiter <char>", "CSV delimiter (default: ,)")
   .example("mappings -t csv mappings.ndjson")
   .example("concepts -r registry.json -s example http://example.org/jskos.csv")
