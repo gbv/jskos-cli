@@ -25,6 +25,7 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha",
+    "coverage": "NODE_ENV=test c8 --reporter=text mocha",
     "lint": "eslint",
     "fix": "eslint --fix",
     "lint-staged": "lint-staged",
@@ -45,6 +46,7 @@
   },
   "author": "Jakob Voß",
   "devDependencies": {
+    "c8": "^11.0.0",
     "cocoda-sdk": "^3.4.13",
     "eslint": "~9.39",
     "eslint-config-gbv": "~2.6",
