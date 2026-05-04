@@ -49,7 +49,7 @@
     "c8": "^11.0.0",
     "cocoda-sdk": "^3.4.13",
     "eslint": "~9.39",
-    "eslint-config-gbv": "~2.6",
+    "eslint-config-gbv": "^2.7.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "mocha": "^11.0.1",
