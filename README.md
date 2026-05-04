@@ -142,7 +142,7 @@ Examples:
   $ jskos-enrich -v input.ndjson output_enriched.ndjson  --schemes ../config/custom_config.json
 ~~~
 
-The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), iterates over specified array-properties (e.g. `subject`, `creator`, `publisher`, etc.), and enriches each entry by adding a `prefLabel` from external concept registries (e.g. DDC, EuroVoc, ILC) via the configured APIs given in `--schemes`.
+The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), iterates over specified array-properties (e.g. `subject`, `creator`, `publisher`, etc.), and enriches each entry by adding missing `prefLabel` and `notation` data from external concept registries (e.g. DDC, BK, EuroVoc, ILC) via the configured APIs given in `--schemes`.
 
 - **Input:** one JSKOS record per line in `input.ndjson`
 
@@ -157,9 +157,9 @@ The **jskos-enrich** command reads newline-delimited JSKOS records (NDJSON), ite
   - `uriPattern` for matching URIs
   - `API` endpoints for enrichment  
  
-A sample configuration file is provided at `config/custom_config.json`, but it is intended for demonstration purposes only.  
+A sample configuration file is provided at `config/custom_config.json`, but it is intended for demonstration purposes only. The BK entry is included as a proposal for Basic Classification support.  
 
-The enrichment routine goes through each JSKOS record and the specified properties, gathers all URIs that don’t already have a `prefLabel`, then fires off all lookup requests at once via the `cocoda-sdk`. Any URIs for which no labels come back will generate a warning when running in verbose (non-quiet) mode.
+The enrichment routine goes through each JSKOS record and the specified properties, gathers all URIs that don’t already have both `prefLabel` and `notation`, then fires off all lookup requests at once via the `cocoda-sdk`. Any URIs for which no enrichment data comes back will generate a warning when running in verbose (non-quiet) mode.
 
 ## Data flow
 

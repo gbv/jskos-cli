@@ -14,6 +14,25 @@
     ]
   },
   {
+    "uri": "http://bartoc.org/en/node/18785",
+    "prefLabel": {
+      "en": "Basic Classification",
+      "de": "Basisklassifikation"
+    },
+    "uriPattern": "http://uri.gbv.de/terminology/bk/(.+)",
+    "namespace": "http://uri.gbv.de/terminology/bk/",
+    "identifier": [
+      "http://bartoc.org/en/node/18785"
+    ],
+    "API": [
+      {
+        "type": "http://bartoc.org/api-type/jskos",
+        "url": "https://api.dante.gbv.de/",
+        "status": "https://api.dante.gbv.de/status"
+      }
+    ]
+  },
+  {
     "uri": "http://bartoc.org/en/node/15",
     "prefLabel": {
       "en": "Multilingual Thesaurus of the European Union"
@@ -48,4 +67,3 @@
     ]
   }
 ]
-
