@@ -94,9 +94,11 @@ Concepts in CSV format can be specified with:
 * `prefLabel` (if default language is specified) and `prefLabel@xx` (with explicit language code `xx`)
 * `altLabel` (if default language is specified) and `altLabel@xx` (with explicit language code `xx`)
 * `scopeNote` (if default language is specified) and `scopeNote@xx` (with explicit language code `xx`)
-* `level` and/or `broaderNotation` for hierarchies. CSV output uses `broaderNotation`.
+* `level` and/or `broaderNotation` for hierarchies. Multiple broader notations can be separated by `|`. CSV output uses `broaderNotation`.
 
-Multi-hierarchies are not supported when converting from and/or to CSV.
+Each concept should occur only once in CSV input. If both `level` and `broaderNotation` are present, the explicit `broaderNotation` takes precedence.
+
+Multi-hierarchies are not supported when converting to CSV.
 
 Mappings in CSV format can be specified with:
 

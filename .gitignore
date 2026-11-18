@@ -10,3 +10,5 @@ coverage/
 *.ntvs*
 *.njsproj
 *.sln
+
+notes/
