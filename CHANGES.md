@@ -1,3 +1,8 @@
+## 0.9.1
+
+- Support multiple hierarchy parents in concept CSV input by separating `broaderNotation` values with `|` (#57)
+- Update dependencies
+
 ## 0.8.5
 
 - Support mapping sameness identifier
